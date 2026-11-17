@@ -24,8 +24,8 @@ from soccer_eval.replay import write_replay  # noqa: E402
 from soccer_eval.schema import Frame, MatchResult  # noqa: E402
 
 SITE = ROOT / "site"
-REPO = "https://github.com/Darksinian/soccer-eval"
-LIVE = "https://darksinian.github.io/soccer-eval/"
+REPO = "https://github.com/Darksinian/soccer-bench"
+LIVE = "https://darksinian.github.io/soccer-bench/"
 AUTHOR, AUTHOR_URL, PUBLISHED = "Mohamed Otefi", "https://x.com/momotefi", "November 2026"
 # Shown in link previews; the card image (site/card.png) is shared with the home page.
 FINDINGS_BLURB = "What 58 games of five-a-side soccer between 8 language models show about how they coordinate."

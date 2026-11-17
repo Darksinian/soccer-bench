@@ -89,7 +89,7 @@ class OpenRouterAgent:
             headers={
                 "Authorization": f"Bearer {key}",
                 "Content-Type": "application/json",
-                "X-Title": "soccer-eval",
+                "X-Title": "soccer-bench",
             },
         )
         for attempt in range(self.max_retries + 1):

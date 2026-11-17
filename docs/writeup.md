@@ -60,7 +60,7 @@ The three models that swarm the ball the most also happen to be the bottom three
 
 Despite announcing their intentions, they converge on the same player and continue following the carrier instead of spreading out to cover the rest of the field (Figure 2).
 
-[![Four Claude Haiku 5.5 players, in orange, converge on the same GPT-5.6 Sol carrier](media/same-job.gif)](https://darksinian.github.io/soccer-eval/replays/haiku-5-5-vs-gpt-56-sol-home.html?t=21&autoplay)
+[![Four Claude Haiku 5.5 players, in orange, converge on the same GPT-5.6 Sol carrier](media/same-job.gif)](https://darksinian.github.io/soccer-bench/replays/haiku-5-5-vs-gpt-56-sol-home.html?t=21&autoplay)
 
 *Figure 2. Haiku (orange) against GPT-5.6 Sol, ticks 21–27: all four outfield players converge on one carrier. Click the clip to open the full replay.*
 
@@ -72,7 +72,7 @@ Even Sol's goalkeeper notices what's happening:
 
 Indeed, Sol, indeed.
 
-[![All four Claude Haiku 5.5 players, in blue, chase GPT-6.1 Sol's carrier and Sol scores](media/swarm.gif)](https://darksinian.github.io/soccer-eval/replays/haiku-5-5-vs-gpt-61-sol-away.html?t=3&autoplay)
+[![All four Claude Haiku 5.5 players, in blue, chase GPT-6.1 Sol's carrier and Sol scores](media/swarm.gif)](https://darksinian.github.io/soccer-bench/replays/haiku-5-5-vs-gpt-61-sol-away.html?t=3&autoplay)
 
 *Figure 3. GPT-6.1 Sol (orange) against Haiku (blue), ticks 3–9: all four Haiku players chase the carrier A2, and A2 scores.*
 
@@ -98,13 +98,13 @@ This is a nice example of spontaneous division of responsibilities. Rather than 
 
 In Figure 5, GPT-6.1 Sol's B1 holds its position near the centre circle while the other three players attack. If possession is lost, there's still someone between the ball and the goal. The team maintains defensive cover without needing an explicitly assigned defender.
 
-[![GPT-6.1 Sol, in blue: B1 holds the centre circle while three teammates attack and score](media/rest-defence.gif)](https://darksinian.github.io/soccer-eval/replays/sonnet-5-5-vs-gpt-61-sol-home.html?t=40&autoplay)
+[![GPT-6.1 Sol, in blue: B1 holds the centre circle while three teammates attack and score](media/rest-defence.gif)](https://darksinian.github.io/soccer-bench/replays/sonnet-5-5-vs-gpt-61-sol-home.html?t=40&autoplay)
 
 *Figure 5. Someone home: GPT-6.1 Sol (blue). B1 holds the centre circle while the other three attack, and B3 scores.*
 
 Figure 6 shows the opposite. All four Luna outfield players push forward, leaving nobody behind. When GPT-5.6 Sol intercepts the ball, there's nothing between its attacker and Luna's goalkeeper. Sol's B4 carries the ball halfway across the pitch and scores.
 
-[![GPT-6 Luna, in orange: all four outfield players push forward and GPT-5.6 Sol scores on the counter](media/nobody-home.gif)](https://darksinian.github.io/soccer-eval/replays/luna-vs-gpt56-sol.html?t=39&autoplay)
+[![GPT-6 Luna, in orange: all four outfield players push forward and GPT-5.6 Sol scores on the counter](media/nobody-home.gif)](https://darksinian.github.io/soccer-bench/replays/luna-vs-gpt56-sol.html?t=39&autoplay)
 
 *Figure 6. Nobody home: Luna (orange). All four Luna outfield players push into GPT-5.6 Sol's half. Sol intercepts, and B4 carries the ball half the pitch with every Luna player behind it, and scores.*
 
@@ -132,7 +132,7 @@ In Figure 8, Opus's A1 explicitly asks A4 to pass ahead of its run:
 
 On the next tick, A4 plays exactly that pass, and the ball reaches A1.
 
-[![Claude Opus 5.5, in orange: A1 asks A4 for the ball and A4 passes to it](media/directing.gif)](https://darksinian.github.io/soccer-eval/replays/gpt-6-astra-vs-opus-5-5-away.html?t=3&autoplay)
+[![Claude Opus 5.5, in orange: A1 asks A4 for the ball and A4 passes to it](media/directing.gif)](https://darksinian.github.io/soccer-bench/replays/gpt-6-astra-vs-opus-5-5-away.html?t=3&autoplay)
 
 *Figure 8. Directing: Claude Opus 5.5 (orange) against GPT-6 Astra, ticks 2–6. A1 asks for the ball and A4 passes it there.*
 
@@ -145,7 +145,7 @@ In Figure 9, during a well-coordinated GPT-6.1 Sol attack, two players position 
 - **Tick 49.** B1 asks again: *"B2, ready inside at (78,24)."* Instead, B2 plays a diagonal pass into B4's announced lane, to (85,35): *"B4: diagonal incoming; meet ball at (85,35) next tick, then finish!"*
 - **Ticks 50–51.** B4 collects the pass at the far post and scores.
 
-[![GPT-6.1 Sol, in blue: B4 announces a far-post run, B2 passes to that spot and B4 scores](media/announced-run.gif)](https://darksinian.github.io/soccer-eval/replays/gpt-6-astra-vs-gpt-61-sol-home.html?t=45&autoplay)
+[![GPT-6.1 Sol, in blue: B4 announces a far-post run, B2 passes to that spot and B4 scores](media/announced-run.gif)](https://darksinian.github.io/soccer-bench/replays/gpt-6-astra-vs-gpt-61-sol-home.html?t=45&autoplay)
 
 *Figure 9. Announcing: GPT-6.1 Sol (blue) against GPT-6 Astra, ticks 45–51. B2 passes into B4's announced run instead of to B1, who asked for the ball, and B4 scores.*
 
@@ -163,7 +163,7 @@ Fable is an interesting exception among the stronger teams. It rarely plays pass
 
 These runs aren't silent. In 93% of these passes, the receiver announced the run the tick before, saying where it was going or asking for the ball there. Figure 11 shows an example of this coordination pattern. Astra's B1 announces that it's *"open for diagonal pass"*. B4 then plays the ball into the space ahead of B1, who continues its run, receives the pass, and scores.
 
-[![GPT-6 Astra, in blue, plays a through ball into a teammate's run and scores](media/through-ball.gif)](https://darksinian.github.io/soccer-eval/replays/gpt-6-astra-vs-gpt-6-luna-away.html?t=47&autoplay)
+[![GPT-6 Astra, in blue, plays a through ball into a teammate's run and scores](media/through-ball.gif)](https://darksinian.github.io/soccer-bench/replays/gpt-6-astra-vs-gpt-6-luna-away.html?t=47&autoplay)
 
 *Figure 11. GPT-6 Astra (blue) against Luna, ticks 47–52: B4 plays the ball into B1's run, and B1 scores.*
 

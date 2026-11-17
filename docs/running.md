@@ -39,7 +39,7 @@ games cost about $63 of Anthropic and $64 of OpenAI usage.
 ## Replay site
 
 [`site/`](../site), live at
-[darksinian.github.io/soccer-eval](https://darksinian.github.io/soccer-eval/), is a static site with the leaderboard and every game: a filterable list and a replay viewer (play, scrub, both teams' shouts beside the pitch, a pause on each
+[darksinian.github.io/soccer-bench](https://darksinian.github.io/soccer-bench/), is a static site with the leaderboard and every game: a filterable list and a replay viewer (play, scrub, both teams' shouts beside the pitch, a pause on each
 goal). It has no build step:
 
 - **GitHub Pages:** in the repository's Settings → Pages, set Source to "GitHub Actions". The

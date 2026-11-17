@@ -12,8 +12,8 @@ pass or stay, and can shout a short message to their teammates.
 </p>
 
 <p align="center">
-  <a href="https://darksinian.github.io/soccer-eval/"><b>Live site</b></a>
-  &nbsp;·&nbsp; <a href="https://darksinian.github.io/soccer-eval/writeup.html">Findings</a>
+  <a href="https://darksinian.github.io/soccer-bench/"><b>Live site</b></a>
+  &nbsp;·&nbsp; <a href="https://darksinian.github.io/soccer-bench/writeup.html">Findings</a>
   &nbsp;·&nbsp; <a href="#quickstart">Run it</a>
 </p>
 
@@ -38,7 +38,7 @@ the pitch at its provider's default reasoning effort.
 Bradley–Terry ratings on the Elo scale with 1,000-resample bootstrap intervals. Full stats,
 head-to-head and every shout are in [`results/`](results/standings.md).
 
-**Key findings** (details, with links to every game, in the [writeup](https://darksinian.github.io/soccer-eval/writeup.html)):
+**Key findings** (details, with links to every game, in the [writeup](https://darksinian.github.io/soccer-bench/writeup.html)):
 
 - **Weak teams swarm the ball instead of splitting the work.** Haiku sends 2+ players at the ball
   on 62% of the opponent's possession, Luna on 49%; the top five on 15–26%.
@@ -98,7 +98,7 @@ python scripts/build_site.py     # writes site/
   title  = {Soccer-Bench: Measuring Multi-Agent Coordination in Language Models through Soccer},
   author = {Otefi, Mohamed},
   year   = {2026},
-  url    = {https://github.com/Darksinian/soccer-eval}
+  url    = {https://github.com/Darksinian/soccer-bench}
 }
 ```
 
