@@ -1,0 +1,18 @@
+game 1/6 start: A=team1 · shouts:team (anthropic/claude-haiku-5-5)  B=team2 (anthropic/claude-haiku-5-5)
+game 2/6 start: A=team2 (anthropic/claude-haiku-5-5)  B=team1 · shouts:team (anthropic/claude-haiku-5-5)
+game 3/6 start: A=team1 · shouts:team (anthropic/claude-haiku-5-5)  B=team2 (anthropic/claude-haiku-5-5)
+game 2 final: A 2 - 3 B  (51 ticks)
+game 4/6 start: A=team2 (anthropic/claude-haiku-5-5)  B=team1 · shouts:team (anthropic/claude-haiku-5-5)
+game 1 final: A 0 - 2 B  (60 ticks)
+game 5/6 start: A=team1 · shouts:team (anthropic/claude-haiku-5-5)  B=team2 (anthropic/claude-haiku-5-5)
+game 3 final: A 0 - 3 B  (36 ticks)
+game 6/6 start: A=team2 (anthropic/claude-haiku-5-5)  B=team1 · shouts:team (anthropic/claude-haiku-5-5)
+game 4 final: A 0 - 2 B  (60 ticks)
+game 5 final: A 1 - 2 B  (60 ticks)
+game 6 final: A 1 - 2 B  (60 ticks)
+
+team     W   D   L   GF   GA   err   inv shouts   cost $  spec
+team1    3   0   3    8   10     1     1   1621    0.780  anthropic/claude-haiku-5-5 (comms team)
+team2    3   0   3   10    8     0     0      0    0.737  anthropic/claude-haiku-5-5 (comms none)
+
+logs and replays in runs/experiments/haiku-talk-vs-silent/

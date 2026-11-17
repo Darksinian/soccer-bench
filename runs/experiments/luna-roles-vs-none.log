@@ -1,0 +1,18 @@
+game 1/6 start: A=team1 · shouts:team · roles (openai/gpt-6-luna)  B=team2 · shouts:team (openai/gpt-6-luna)
+game 2/6 start: A=team2 · shouts:team (openai/gpt-6-luna)  B=team1 · shouts:team · roles (openai/gpt-6-luna)
+game 3/6 start: A=team1 · shouts:team · roles (openai/gpt-6-luna)  B=team2 · shouts:team (openai/gpt-6-luna)
+game 1 final: A 1 - 3 B  (52 ticks)
+game 4/6 start: A=team2 · shouts:team (openai/gpt-6-luna)  B=team1 · shouts:team · roles (openai/gpt-6-luna)
+game 3 final: A 1 - 2 B  (60 ticks)
+game 5/6 start: A=team1 · shouts:team · roles (openai/gpt-6-luna)  B=team2 · shouts:team (openai/gpt-6-luna)
+game 2 final: A 0 - 1 B  (60 ticks)
+game 6/6 start: A=team2 · shouts:team (openai/gpt-6-luna)  B=team1 · shouts:team · roles (openai/gpt-6-luna)
+game 5 final: A 2 - 0 B  (60 ticks)
+game 6 final: A 1 - 2 B  (60 ticks)
+game 4 final: A 2 - 2 B  (60 ticks)
+
+team     W   D   L   GF   GA   err   inv shouts   cost $  spec
+team1    3   1   2    9    8     0     0   1084    0.771  openai/gpt-6-luna (comms team)
+team2    2   1   3    8    9     0     0   1589    0.891  openai/gpt-6-luna (comms team)
+
+logs and replays in runs/experiments/luna-roles-vs-none/

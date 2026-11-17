@@ -1,0 +1,128 @@
+{
+  "teams": {
+    "team1": "openai/gpt-6.1-sol",
+    "team2": "openai/gpt-6.1-sol"
+  },
+  "comms": {
+    "team1": "team",
+    "team2": "none"
+  },
+  "roles": {
+    "team1": false,
+    "team2": false
+  },
+  "config": {
+    "n_per_team": 5,
+    "width": 100.0,
+    "height": 60.0,
+    "goal_width": 9.6,
+    "box_depth": 16.0,
+    "box_width": 32.0,
+    "player_radius": 1.0,
+    "ball_radius": 0.4,
+    "player_speed": 6.0,
+    "carrier_speed": 5.0,
+    "pass_speed": 20.0,
+    "ball_friction": 0.0,
+    "ball_turn_rate": 180.0,
+    "max_ticks": 60,
+    "goals_to_win": 3,
+    "steal_immunity_ticks": 1,
+    "substeps": 20,
+    "comms": "team",
+    "shout_max_chars": 80,
+    "roles": false
+  },
+  "totals": {
+    "team1": {
+      "wins": 4,
+      "draws": 1,
+      "losses": 1,
+      "goals_for": 6,
+      "goals_against": 3,
+      "errors": 0,
+      "invalid": 0,
+      "shouts": 1672,
+      "cost": 9.594090100000003
+    },
+    "team2": {
+      "wins": 1,
+      "draws": 1,
+      "losses": 4,
+      "goals_for": 3,
+      "goals_against": 6,
+      "errors": 0,
+      "invalid": 0,
+      "shouts": 0,
+      "cost": 8.850863100000002
+    }
+  },
+  "games": [
+    {
+      "game": 1,
+      "A": "team1",
+      "B": "team2",
+      "score": {
+        "A": 1,
+        "B": 0
+      },
+      "ticks": 60,
+      "replay": "game_01.html"
+    },
+    {
+      "game": 2,
+      "A": "team2",
+      "B": "team1",
+      "score": {
+        "A": 1,
+        "B": 0
+      },
+      "ticks": 60,
+      "replay": "game_02.html"
+    },
+    {
+      "game": 3,
+      "A": "team1",
+      "B": "team2",
+      "score": {
+        "A": 1,
+        "B": 0
+      },
+      "ticks": 60,
+      "replay": "game_03.html"
+    },
+    {
+      "game": 4,
+      "A": "team2",
+      "B": "team1",
+      "score": {
+        "A": 1,
+        "B": 2
+      },
+      "ticks": 60,
+      "replay": "game_04.html"
+    },
+    {
+      "game": 5,
+      "A": "team1",
+      "B": "team2",
+      "score": {
+        "A": 1,
+        "B": 0
+      },
+      "ticks": 60,
+      "replay": "game_05.html"
+    },
+    {
+      "game": 6,
+      "A": "team2",
+      "B": "team1",
+      "score": {
+        "A": 1,
+        "B": 1
+      },
+      "ticks": 60,
+      "replay": "game_06.html"
+    }
+  ]
+}

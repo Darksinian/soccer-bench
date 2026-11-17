@@ -1,0 +1,18 @@
+game 1/6 start: A=team1 · shouts:team (openai/gpt-6.1-sol)  B=team2 (openai/gpt-6.1-sol)
+game 2/6 start: A=team2 (openai/gpt-6.1-sol)  B=team1 · shouts:team (openai/gpt-6.1-sol)
+game 3/6 start: A=team1 · shouts:team (openai/gpt-6.1-sol)  B=team2 (openai/gpt-6.1-sol)
+game 4/6 start: A=team2 (openai/gpt-6.1-sol)  B=team1 · shouts:team (openai/gpt-6.1-sol)
+game 5/6 start: A=team1 · shouts:team (openai/gpt-6.1-sol)  B=team2 (openai/gpt-6.1-sol)
+game 6/6 start: A=team2 (openai/gpt-6.1-sol)  B=team1 · shouts:team (openai/gpt-6.1-sol)
+game 3 final: A 1 - 0 B  (60 ticks)
+game 1 final: A 1 - 0 B  (60 ticks)
+game 2 final: A 1 - 0 B  (60 ticks)
+game 4 final: A 1 - 2 B  (60 ticks)
+game 6 final: A 1 - 1 B  (60 ticks)
+game 5 final: A 1 - 0 B  (60 ticks)
+
+team     W   D   L   GF   GA   err   inv shouts   cost $  spec
+team1    4   1   1    6    3     0     0   1672    9.594  openai/gpt-6.1-sol (comms team)
+team2    1   1   4    3    6     0     0      0    8.851  openai/gpt-6.1-sol (comms none)
+
+logs and replays in runs/experiments/sol-talk-vs-silent-2/
