@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soccer-Bench</title>
+<meta name="description" content="Soccer-Bench measures how well language models coordinate as a team. Two teams of five play 2D soccer, and every player is a separate model call.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Soccer-Bench">
+<meta property="og:description" content="Soccer-Bench measures how well language models coordinate as a team. Two teams of five play 2D soccer, and every player is a separate model call.">
+<meta property="og:url" content="https://darksinian.github.io/soccer-eval/">
+<meta property="og:image" content="https://darksinian.github.io/soccer-eval/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a benchmark home page — introduction, how it works, leaderboard, then every game with a player. */
+:root {
+  --bg: #FFFFFF; --surface: #F6F7F4; --ink: #1B1E22; --soft: #474E57; --muted: #5F6670;
+  --rule: #DDE2DA; --accent: #2F8550; --accent-light: #9ED8AE;
+  --claude: #D9682A; --gpt: #3B82C4; --bot: #7A7F87; --whisker: #1B1E22;
+  --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', Arial, sans-serif; --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
+    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
+  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+  color-scheme: dark;
+}
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-block: 48px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: 1.05; }
+h2 { font-size: 28px; line-height: 1.2; }
+h3 { font-size: 18px; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+section { display: flex; flex-direction: column; gap: 18px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 3px solid var(--accent-light); }
+.prose { color: var(--soft); max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+.sw { display: inline-block; width: 12px; height: 12px; flex: none; }
+.sw.claude { background: var(--claude); } .sw.gpt { background: var(--gpt); } .sw.bot { background: var(--bot); }
+.muted { color: var(--muted); font-size: 14px; }
+
+/* hero */
+.hero { display: flex; flex-direction: column; gap: 18px; }
+.lede { font-size: 20px; line-height: 1.5; color: var(--soft); max-width: 62ch; }
+.facts { font-family: var(--mono); font-size: 14px; color: var(--muted); }
+.nav { display: flex; flex-wrap: wrap; gap: 10px 22px; font-weight: 500; }
+
+/* how it works */
+.how { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 14px 28px; margin: 0; }
+.how dt { font-weight: 600; }
+.how dd { margin: 0; color: var(--soft); max-width: 68ch; }
+@media (max-width: 640px) { .how { grid-template-columns: 1fr; gap: 4px; } .how dd { margin-bottom: 12px; } }
+
+/* leaderboard */
+.board { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.board-wrap { overflow-x: auto; }
+.board th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.board td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; white-space: nowrap; }
+.board .num { text-align: right; }
+.board .rank { color: var(--muted); width: 28px; }
+.board .model { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.board .plot { width: 40%; min-width: 220px; }
+.bar-track { position: relative; height: 18px; }
+.bar { position: absolute; left: 0; top: 0; height: 18px; }
+.bar.claude { background: var(--claude); } .bar.gpt { background: var(--gpt); }
+.whisker { position: absolute; top: 8px; height: 2px; background: var(--whisker); }
+.cap { position: absolute; top: 3px; width: 2px; height: 12px; background: var(--whisker); }
+.axis { position: relative; height: 18px; font-size: 12px; color: var(--muted); }
+.axis span { position: absolute; transform: translateX(-50%); }
+.prov { font-size: 12px; color: var(--muted); margin-left: 4px; }
+@media (max-width: 640px) { .board .hide-sm { display: none; } }
+
+/* games */
+#player { display: flex; flex-direction: column; gap: 8px; }
+[hidden] { display: none !important; }
+.frame { width: 100%; height: min(80vh, 780px); border: 0; background: var(--bg); display: block; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+select { font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); }
+.gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px 16px; }
+.cg { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.cg .thumb { position: relative; display: block; width: 100%; aspect-ratio: 106 / 66; padding: 0; border: 0; border-radius: 8px; overflow: hidden; background: #3f7d4f; cursor: pointer; }
+.cg .thumb img { display: block; width: 100%; height: 100%; }
+.cg .thumb .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .35); color: #fff; font-size: 30px; opacity: 0; transition: opacity .15s; }
+.cg .thumb:hover .play, .cg .thumb:focus-visible .play, .cg.current .thumb .play { opacity: 1; }
+.cg .thumb .ticks { position: absolute; right: 6px; bottom: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(0, 0, 0, .7); color: #fff; font: 12px var(--mono); }
+.cg .thumb .badge { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 4px; background: rgba(0, 0, 0, .7); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.cg.current .thumb { outline: 3px solid var(--accent); outline-offset: 2px; }
+.cg-t { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 8px; align-items: center; font-size: 15px; }
+.cg-t .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cg-t .g { font-family: var(--mono); }
+.cg-t .dot { width: 10px; height: 10px; border-radius: 50%; }
+.cg-t .dot.a { background: #2f6fdb; } .cg-t .dot.b { background: #e0692d; }
+.cg-t.win { font-weight: 600; }
+.cg-t:not(.win) { color: var(--soft); }
+@media (max-width: 520px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; } .cg-t { font-size: 13px; gap: 6px; } .cg .thumb .ticks { font-size: 11px; } }
+/* top bar: the same on every page, stays in view while scrolling */
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); }
+.topbar-in { max-width: 1280px; margin: 0 auto; padding: 10px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 16px; }
+.brand { font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.links { margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 15px; font-weight: 500; }
+.links a { color: var(--soft); text-decoration: none; }
+.links a:hover, .links a[aria-current="page"] { color: var(--ink); }
+.links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.gh { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border: 1px solid var(--rule); border-radius: 8px; }
+.gh:hover { border-color: var(--soft); }
+.gh svg { width: 18px; height: 18px; fill: currentColor; }
+section[id] { scroll-margin-top: 72px; }
+@media (max-width: 460px) { .brand-name { display: none; } .links { gap: 16px; font-size: 14px; } }
+.open-link { margin: 0; text-align: right; font-size: 13px; }
+.finding { font-size: 18px; color: var(--ink); font-weight: 500; }
+.finding a { white-space: nowrap; }
+/* games: the player on the left, every game in a column on the right (like "Up next") */
+.theatre { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start;
+}
+.upnext { contain: size; height: 100%; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.upnext .strip { display: flex; flex-direction: column; min-height: 0; height: 100%; gap: 0; margin: 0; }
+.upnext .controls { padding: 10px 12px; gap: 6px 8px; border-bottom: 1px solid var(--rule); }
+.upnext select { font-size: 13px; padding: 4px 6px; flex: 1 1 0; min-width: 0; }
+.upnext .controls { flex-wrap: nowrap; }
+.upnext #count { white-space: nowrap; }
+.upnext .controls label, .upnext #count { font-size: 12px; }
+.upnext .strip .gallery { display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; gap: 0; padding: 0; flex: 1 1 0; min-height: 0; scroll-snap-type: none; }
+.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.upnext .cg .thumb { grid-row: 1 / span 4; width: 112px; height: 70px; aspect-ratio: auto; border-radius: 6px; }
+.upnext .cg > .cg-t:nth-child(2) { grid-row: 2; grid-column: 2; } .upnext .cg > .cg-t:nth-child(3) { grid-row: 3; grid-column: 2; }
+.upnext .cg .thumb .ticks { font-size: 10px; right: 4px; bottom: 4px; }
+.upnext .cg .thumb .badge { font-size: 9px; left: 4px; top: 4px; padding: 1px 4px; }
+.upnext .cg-t { font-size: 13px; gap: 6px; grid-template-columns: 9px minmax(0, 1fr) auto; }
+.upnext .cg-t .dot { width: 8px; height: 8px; }
+.upnext .cg.current { background: var(--bg); }
+.upnext .cg.current .thumb { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (max-width: 1100px) { .theatre { grid-template-columns: 1fr; width: auto; margin-left: 0; transform: none; } .upnext { contain: none; height: 420px; } }
+.strip { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 18px; }
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Site">
+  <div class="topbar-in">
+    <a class="brand" href="./"><span aria-hidden="true">⚽</span><span class="brand-name"> Soccer-Bench</span></a>
+    <div class="links">
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#games">Games</a>
+      <a href="writeup.html">Findings</a>
+      <a class="gh" href="https://github.com/Darksinian/soccer-eval" aria-label="Code and data on GitHub" title="Code and data on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <header class="hero">
+    <h1>Soccer-Bench</h1>
+    <p class="lede">Can language-model agents work as a team? Five copies of a model play five-a-side soccer against another team. Every player is its own model call each simulated second, and the only way to coordinate is a short shout that teammates hear on the next tick.</p>
+    <p class="finding">Weak models swarm the ball; strong ones split the work. <a href="writeup.html">Read the findings →</a></p>
+  </header>
+
+  <section id="games">
+    <div class="theatre">
+    <div id="player" hidden aria-live="polite">
+      <iframe class="frame" id="player-frame" title="Game replay" scrolling="no"></iframe>
+      <p class="open-link"><span id="player-title" hidden></span><a id="player-open" href="#" target="_blank" rel="noopener">Open on its own page ↗</a></p>
+    </div>
+    <aside class="upnext" aria-label="All games">
+    <div class="strip">
+    <div class="controls">
+      <select id="view" aria-label="Show"><option value="all">All games</option><option value="upsets">Upsets</option><option value="close">One-goal games</option><option value="goals">3+ goals</option></select>
+      <select id="model" aria-label="Model"><option value="">Any model</option></select>
+      <span class="muted" id="count"></span>
+    </div>
+    <ul class="gallery" id="list"><li class="muted">Loading games…</li></ul>
+    </div>
+    </aside>
+    </div>
+  </section>
+
+  <section id="leaderboard">
+    <div class="section-head"><h2>Leaderboard</h2></div>
+    <p class="muted"><span class="sw claude"></span> Claude &nbsp;&nbsp; <span class="sw gpt"></span> GPT</p>
+    <div class="board-wrap">
+      <table class="board">
+        <thead><tr><th>#</th><th>Model</th><th>Rating</th><th class="num">Rating (95% CI)</th><th class="num">W-D-L</th><th class="num hide-sm">Goals</th><th class="num hide-sm">Passes completed</th></tr></thead>
+        <tbody id="board"><tr><td colspan="7" class="muted">Loading the leaderboard…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+
+</div>
+
+<script>
+let GAMES = [], model = "", view = "all", RATING = {};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// Leaderboard: bars from 700 to 1300, whisker for the 95% interval.
+const LO = 600, HI = 1320, pct = (v) => Math.max(0, Math.min(100, (v - LO) / (HI - LO) * 100));
+function renderBoard(data) {
+  data.models.forEach((m) => { RATING[m.name] = m.rating; });
+  if (GAMES.length) renderList();
+  $("board").innerHTML = data.models.map((m, i) => `
+    <tr>
+      <td class="rank">${i + 1}</td>
+      <td><span class="model"><span class="sw ${m.family}"></span>${esc(m.name)}${m.games < 6 ? '<span class="prov">provisional</span>' : ""}</span></td>
+      <td class="plot"><div class="bar-track">
+        <div class="bar ${m.family}" style="width:${pct(m.rating)}%"></div>
+        <div class="whisker" style="left:${pct(m.ci[0])}%; width:${pct(m.ci[1]) - pct(m.ci[0])}%"></div>
+        ${m.ci[0] > LO ? `<div class="cap" style="left:calc(${pct(m.ci[0])}% - 1px)"></div>` : ""}
+        <div class="cap" style="left:calc(${pct(m.ci[1])}% - 1px)"></div>
+      </div></td>
+      <td class="num"><b>${m.rating}</b> <span class="muted">(${m.ci[0]}–${m.ci[1]})</span></td>
+      <td class="num">${m.w}-${m.d}-${m.l}</td>
+      <td class="num hide-sm">${m.gf}:${m.ga}</td>
+      <td class="num hide-sm">${m.pass_pct}%</td>
+    </tr>`).join("") + `
+    <tr><td></td><td></td><td class="plot"><div class="axis">${[600, 800, 1000, 1200].map((v) => `<span style="left:${pct(v)}%">${v}</span>`).join("")}</div></td><td colspan="4"></td></tr>`;
+}
+
+const label = (g) => `${g.a} ${g.ga}–${g.gb} ${g.b}`;
+
+const FEATURED = "gpt-6-astra-vs-gpt-61-sol-home";  // shown and playing when the page opens
+function play(id, scroll = true, setHash = true) {
+  const g = GAMES.find((x) => x.id === id);
+  if (!g) return;
+  $("player").hidden = false;
+  $("player-title").textContent = label(g);
+  $("player-frame").src = g.replay + "?autoplay=1";
+  $("player-open").href = g.replay;
+  if (setHash) { try { history.replaceState(null, "", "#" + g.id); } catch (e) {} }
+  document.querySelectorAll(".cg").forEach((el) => el.classList.toggle("current", el.dataset.id === id));
+  if (scroll) $("player").scrollIntoView({ block: "start" });
+}
+
+// An upset: the winner is rated below the loser on the leaderboard.
+const upset = (g) => g.ga !== g.gb && RATING[g.a] !== undefined && RATING[g.b] !== undefined
+  && (g.ga > g.gb ? RATING[g.a] < RATING[g.b] : RATING[g.b] < RATING[g.a]);
+const VIEWS = {
+  all: (g) => true,
+  upsets: upset,
+  close: (g) => Math.abs(g.ga - g.gb) === 1,
+  goals: (g) => g.ga + g.gb >= 3,
+};
+function card(g) {
+  // Dots in the replay colours (team A blue, team B orange), matching the thumbnail and the player.
+  const side = (n, team, goals, win) =>
+    `<div class="cg-t${win ? " win" : ""}"><span class="dot ${team}"></span><span class="n">${esc(n)}</span><span class="g">${goals}</span></div>`;
+  return `<li class="cg" data-id="${g.id}">
+    <button class="thumb" type="button" data-id="${g.id}" aria-label="Watch ${esc(label(g))}">
+      <img src="${g.thumb}" alt="" loading="lazy">${upset(g) ? '<span class="badge">Upset</span>' : ""}
+      <span class="play" aria-hidden="true">&#9654;</span><span class="ticks">${g.ticks} ticks</span>
+    </button>
+    ${side(g.a, "a", g.ga, g.ga > g.gb)}${side(g.b, "b", g.gb, g.gb > g.ga)}
+  </li>`;
+}
+function renderList() {
+  const rows = GAMES.filter((g) => (!model || g.a === model || g.b === model) && VIEWS[view](g));
+  $("count").textContent = `${rows.length} game${rows.length === 1 ? "" : "s"}`;
+  $("list").innerHTML = rows.length ? rows.map(card).join("") : `<li class="muted">No games match.</li>`;
+  const cur = location.hash.slice(1) || FEATURED;
+  document.querySelectorAll(".cg").forEach((el) => el.classList.toggle("current", el.dataset.id === cur && !$("player").hidden));
+}
+
+document.addEventListener("click", (e) => {
+  const w = e.target.closest(".thumb");
+  if (w) {
+    play(w.dataset.id, false);
+    if ($("player").getBoundingClientRect().top < 0) $("player").scrollIntoView({ block: "start" });
+  }
+});
+$("model").addEventListener("change", (e) => { model = e.target.value; renderList(); });
+$("view").addEventListener("change", (e) => { view = e.target.value; renderList(); });
+// Size the player to the whole replay so it never scrolls inside its own box.
+let fitObserver = null;
+$("player-frame").addEventListener("load", () => {
+  const frame = $("player-frame");
+  if (fitObserver) { fitObserver.disconnect(); fitObserver = null; }
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return;
+    // Fit the replay's content, not the frame's own viewport (which would never let it shrink).
+    const box = doc.querySelector("main") || doc.body;
+    const fit = () => { frame.style.height = Math.ceil(box.getBoundingClientRect().height) + "px"; };
+    fit();
+    fitObserver = new ResizeObserver(fit);
+    fitObserver.observe(box);
+  } catch (e) { frame.removeAttribute("scrolling"); }
+});
+
+
+fetch("leaderboard.json").then((r) => r.json()).then(renderBoard)
+  .catch(() => { $("board").innerHTML = `<tr><td colspan="7" class="muted">The leaderboard didn’t load. Reload the page to try again.</td></tr>`; });
+fetch("games.json").then((r) => r.json()).then((games) => {
+  GAMES = games;
+  const models = [...new Set(games.flatMap((g) => [g.a, g.b]))].sort();
+  $("model").innerHTML += models.map((m) => `<option>${esc(m)}</option>`).join("");
+  renderList();
+  const h = location.hash.slice(1);
+  if (h && GAMES.some((g) => g.id === h)) play(h, false);
+  else play(FEATURED, false, false);
+  // Arriving at #games or #leaderboard: scroll again now that the content above has loaded.
+  const target = h && !GAMES.some((g) => g.id === h) && document.getElementById(h);
+  if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+}).catch(() => { $("list").innerHTML = `<li class="muted">The game list didn’t load. Reload the page to try again.</li>`; });
+</script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soccer-Bench Findings</title>
+<meta name="description" content="What 58 games of five-a-side soccer between 8 language models show about how they coordinate.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soccer-Bench Findings">
+<meta property="og:description" content="What 58 games of five-a-side soccer between 8 language models show about how they coordinate.">
+<meta property="og:url" content="https://darksinian.github.io/soccer-eval/writeup.html">
+<meta property="og:image" content="https://darksinian.github.io/soccer-eval/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a benchmark home page — introduction, how it works, leaderboard, then every game with a player. */
+:root {
+  --bg: #FFFFFF; --surface: #F6F7F4; --ink: #1B1E22; --soft: #474E57; --muted: #5F6670;
+  --rule: #DDE2DA; --accent: #2F8550; --accent-light: #9ED8AE;
+  --claude: #D9682A; --gpt: #3B82C4; --bot: #7A7F87; --whisker: #1B1E22;
+  --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', Arial, sans-serif; --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
+    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
+  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+  color-scheme: dark;
+}
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-block: 48px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: 1.05; }
+h2 { font-size: 28px; line-height: 1.2; }
+h3 { font-size: 18px; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+section { display: flex; flex-direction: column; gap: 18px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 3px solid var(--accent-light); }
+.prose { color: var(--soft); max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+.sw { display: inline-block; width: 12px; height: 12px; flex: none; }
+.sw.claude { background: var(--claude); } .sw.gpt { background: var(--gpt); } .sw.bot { background: var(--bot); }
+.muted { color: var(--muted); font-size: 14px; }
+
+/* hero */
+.hero { display: flex; flex-direction: column; gap: 18px; }
+.lede { font-size: 20px; line-height: 1.5; color: var(--soft); max-width: 62ch; }
+.facts { font-family: var(--mono); font-size: 14px; color: var(--muted); }
+.nav { display: flex; flex-wrap: wrap; gap: 10px 22px; font-weight: 500; }
+
+/* how it works */
+.how { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 14px 28px; margin: 0; }
+.how dt { font-weight: 600; }
+.how dd { margin: 0; color: var(--soft); max-width: 68ch; }
+@media (max-width: 640px) { .how { grid-template-columns: 1fr; gap: 4px; } .how dd { margin-bottom: 12px; } }
+
+/* leaderboard */
+.board { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.board-wrap { overflow-x: auto; }
+.board th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.board td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; white-space: nowrap; }
+.board .num { text-align: right; }
+.board .rank { color: var(--muted); width: 28px; }
+.board .model { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.board .plot { width: 40%; min-width: 220px; }
+.bar-track { position: relative; height: 18px; }
+.bar { position: absolute; left: 0; top: 0; height: 18px; }
+.bar.claude { background: var(--claude); } .bar.gpt { background: var(--gpt); }
+.whisker { position: absolute; top: 8px; height: 2px; background: var(--whisker); }
+.cap { position: absolute; top: 3px; width: 2px; height: 12px; background: var(--whisker); }
+.axis { position: relative; height: 18px; font-size: 12px; color: var(--muted); }
+.axis span { position: absolute; transform: translateX(-50%); }
+.prov { font-size: 12px; color: var(--muted); margin-left: 4px; }
+@media (max-width: 640px) { .board .hide-sm { display: none; } }
+
+/* games */
+#player { display: flex; flex-direction: column; gap: 8px; }
+[hidden] { display: none !important; }
+.frame { width: 100%; height: min(80vh, 780px); border: 0; background: var(--bg); display: block; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+select { font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); }
+.gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px 16px; }
+.cg { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.cg .thumb { position: relative; display: block; width: 100%; aspect-ratio: 106 / 66; padding: 0; border: 0; border-radius: 8px; overflow: hidden; background: #3f7d4f; cursor: pointer; }
+.cg .thumb img { display: block; width: 100%; height: 100%; }
+.cg .thumb .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .35); color: #fff; font-size: 30px; opacity: 0; transition: opacity .15s; }
+.cg .thumb:hover .play, .cg .thumb:focus-visible .play, .cg.current .thumb .play { opacity: 1; }
+.cg .thumb .ticks { position: absolute; right: 6px; bottom: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(0, 0, 0, .7); color: #fff; font: 12px var(--mono); }
+.cg .thumb .badge { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 4px; background: rgba(0, 0, 0, .7); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.cg.current .thumb { outline: 3px solid var(--accent); outline-offset: 2px; }
+.cg-t { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 8px; align-items: center; font-size: 15px; }
+.cg-t .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cg-t .g { font-family: var(--mono); }
+.cg-t .dot { width: 10px; height: 10px; border-radius: 50%; }
+.cg-t .dot.a { background: #2f6fdb; } .cg-t .dot.b { background: #e0692d; }
+.cg-t.win { font-weight: 600; }
+.cg-t:not(.win) { color: var(--soft); }
+@media (max-width: 520px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; } .cg-t { font-size: 13px; gap: 6px; } .cg .thumb .ticks { font-size: 11px; } }
+/* top bar: the same on every page, stays in view while scrolling */
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); }
+.topbar-in { max-width: 1280px; margin: 0 auto; padding: 10px max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 16px; }
+.brand { font-family: var(--serif); font-weight: 600; font-size: 19px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.links { margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 15px; font-weight: 500; }
+.links a { color: var(--soft); text-decoration: none; }
+.links a:hover, .links a[aria-current="page"] { color: var(--ink); }
+.links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.gh { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border: 1px solid var(--rule); border-radius: 8px; }
+.gh:hover { border-color: var(--soft); }
+.gh svg { width: 18px; height: 18px; fill: currentColor; }
+section[id] { scroll-margin-top: 72px; }
+@media (max-width: 460px) { .brand-name { display: none; } .links { gap: 16px; font-size: 14px; } }
+.open-link { margin: 0; text-align: right; font-size: 13px; }
+.finding { font-size: 18px; color: var(--ink); font-weight: 500; }
+.finding a { white-space: nowrap; }
+/* games: the player on the left, every game in a column on the right (like "Up next") */
+.theatre { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start;
+}
+.upnext { contain: size; height: 100%; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.upnext .strip { display: flex; flex-direction: column; min-height: 0; height: 100%; gap: 0; margin: 0; }
+.upnext .controls { padding: 10px 12px; gap: 6px 8px; border-bottom: 1px solid var(--rule); }
+.upnext select { font-size: 13px; padding: 4px 6px; flex: 1 1 0; min-width: 0; }
+.upnext .controls { flex-wrap: nowrap; }
+.upnext #count { white-space: nowrap; }
+.upnext .controls label, .upnext #count { font-size: 12px; }
+.upnext .strip .gallery { display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; gap: 0; padding: 0; flex: 1 1 0; min-height: 0; scroll-snap-type: none; }
+.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.upnext .cg .thumb { grid-row: 1 / span 4; width: 112px; height: 70px; aspect-ratio: auto; border-radius: 6px; }
+.upnext .cg > .cg-t:nth-child(2) { grid-row: 2; grid-column: 2; } .upnext .cg > .cg-t:nth-child(3) { grid-row: 3; grid-column: 2; }
+.upnext .cg .thumb .ticks { font-size: 10px; right: 4px; bottom: 4px; }
+.upnext .cg .thumb .badge { font-size: 9px; left: 4px; top: 4px; padding: 1px 4px; }
+.upnext .cg-t { font-size: 13px; gap: 6px; grid-template-columns: 9px minmax(0, 1fr) auto; }
+.upnext .cg-t .dot { width: 8px; height: 8px; }
+.upnext .cg.current { background: var(--bg); }
+.upnext .cg.current .thumb { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (max-width: 1100px) { .theatre { grid-template-columns: 1fr; width: auto; margin-left: 0; transform: none; } .upnext { contain: none; height: 420px; } }
+.strip { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 18px; }
+
+.writeup { max-width: 760px; display: flex; flex-direction: column; gap: 16px; color: var(--soft); }
+.writeup h2 { color: var(--ink); margin-top: 36px; padding-bottom: 12px; border-bottom: 3px solid var(--accent-light); }
+.writeup h3 { color: var(--ink); margin-top: 12px; }
+.writeup ul, .writeup ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+.writeup strong { color: var(--ink); }
+.writeup code { font-family: var(--mono); font-size: 0.9em; }
+.writeup .table-wrap { overflow-x: auto; }
+.writeup table { border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; }
+.writeup th, .writeup td { text-align: left; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.writeup th { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.writeup img { max-width: 100%; height: auto; display: block; }
+.writeup figure { margin: 8px 0 12px; }
+.writeup figure img { width: 100%; border-radius: 8px; }
+.writeup figcaption { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.writeup figcaption b { color: var(--ink); font-weight: 600; }
+.writeup blockquote { margin: 0; padding: 12px 16px; border-left: 3px solid var(--accent-light); background: var(--surface);
+  color: var(--ink); font-size: 15px; line-height: 1.7; }
+.writeup blockquote p { margin: 0; }
+.writeup td img { margin-bottom: 4px; }
+.writeup th:empty { padding: 0; border: 0; }
+.writeup .data th, .writeup .data td { white-space: nowrap; }
+.writeup a[href*="?t="] { white-space: nowrap; font-weight: 500; }
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Site">
+  <div class="topbar-in">
+    <a class="brand" href="./"><span aria-hidden="true">⚽</span><span class="brand-name"> Soccer-Bench</span></a>
+    <div class="links">
+      <a href="./#leaderboard">Leaderboard</a>
+      <a href="./#games">Games</a>
+      <a href="writeup.html" aria-current="page">Findings</a>
+      <a class="gh" href="https://github.com/Darksinian/soccer-eval" aria-label="Code and data on GitHub" title="Code and data on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <article class="writeup">
+<h2 id="motivation">Motivation</h2>
+<p>In the DeepMind Institute essay <a href="https://institute.deepmind.com/essays/the-economics-of-intelligence/"><em>The Economics of Intelligence: How and when does AGI lead to economic transformation?</em></a>, Imas, Koh, and Legg argue that one reason the economy has remained relatively unchanged despite the explosion in model capabilities is the difficulty of coordinating multiple agents. They argue that "[o]nce coordination reaches a critical threshold, it triggers large, abrupt jumps in market concentration, employment, and wages." Most capability benchmarks focus on individual agents, whereas the relevant economic unit is often the organization. The authors rightfully argue that we need benchmarks that examine how agents communicate, divide responsibilities, and coordinate toward shared objectives. This benchmark is a loose first attempt to measure some of these capabilities in a familiar setting.</p>
+<p>When kids first start playing soccer, they tend to chase the ball together with little regard for positioning or strategy. As they improve, some structure begins to emerge where players hold positions, make passes, and start anticipating movements. At the pro level, teams exhibit sophisticated coordination with little explicit communication. Soccer is particularly interesting because it requires several forms of coordination:</p>
+<ol>
+<li>
+<p><strong>Off-ball coordination:</strong> Players spend most of their time without the ball. They make runs, occupy space, draw defenders away, and create plays for their teammates. Lots of contributions on the field are made by players who never touch the ball during the play.</p>
+</li>
+<li>
+<p><strong>Implicit coordination:</strong> Through positioning and movement, players communicate intentions without explicitly stating them. Think of a perfectly timed through-ball or the passing sequences of Barcelona's tiki-taka. If you've ever watched the golden generations of Brazil play, you know how beautiful it can be when players have shared chemistry without exchanging a single word.</p>
+</li>
+<li>
+<p><strong>Explicit communication:</strong> Players shout calls for passes and signal movements that help organize plays on the field. These messages can help synchronize actions when intentions can't be inferred from positioning alone.</p>
+</li>
+<li>
+<p><strong>Adaptation and replanning:</strong> Soccer is very dynamic. A pass can be intercepted, a defender can change positions, or an unexpected opening can emerge. Players have to be adaptive and continuously adjust their decisions while maintaining a degree of collective structure.</p>
+</li>
+</ol>
+<p>This coordination doesn't always require prior planning. A group of strangers will typically show up for a pickup game, and within minutes begin developing something resembling an organized team. Players implicitly assume roles, adjust to each other's tendencies, and gradually improve their collective behavior.</p>
+<p><strong>Can LLM agents do something similar?</strong></p>
+<p>More specifically, can agents spontaneously develop roles, anticipate their teammates, communicate useful information, and adapt their strategies without centralized planning?</p>
+<p>Soccer offers a relatively simple environment to observe these behaviors. It is a setting in which agents must repeatedly make decisions toward a shared objective. The hope is that studying their behavior can offer some useful insights into how we might design better multi-agent coordination benchmarks.</p>
+<h2 id="setup">Setup</h2>
+<p>Two teams of five play 2D soccer on a 100 × 60 pitch, for 60 ticks (one simulated second each) or until a team scores three goals.</p>
+<p>Every player, including the goalkeeper, is controlled by a separate call to its team's model. At each tick:</p>
+<ol>
+<li>Players receive the same snapshot of the pitch: every player's position and last movement, the ball, the score and the time left, and any shouts in the previous tick, with no memory of earlier ticks.</li>
+<li>Each player independently chooses one of the following actions: move toward a point, pass toward a point or stay in place. Shooting is just a pass toward the opponent's goal. They can also shout a message of up to 80 characters, which all teammates receive in the next tick.</li>
+</ol>
+<p>Passes travel in straight lines and bounce off the pitch boundaries until intercepted or received. Players physically block one another, and opponents can win possession by touching the ball, making positioning and defensive coordination important. Models compete using their providers' default reasoning effort.</p>
+<p><strong>There is no planning phase and no assigned positions apart from the goalkeeper. Roles, formations, and collective strategies emerge during play.</strong></p>
+<h2 id="findings">Findings</h2>
+<h3 id="1-weak-teams-swarm-the-ball">1. Weak teams swarm the ball</h3>
+<p>When an opponent has possession, how often do two or more defenders decide to chase the ball instead of covering other players or occupying space?</p>
+<p>Figure 1 shows this for each model, ordered by leaderboard ranking.</p>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/chase-narrow.svg"><img alt="2+ players head for the ball, by model" src="media/charts/chase.svg" /></picture><figcaption><b>Figure 1.</b> Share of the opponent's possession ticks on which two or more outfield players head for the ball. Teams in rating order, strongest first.</figcaption></figure>
+<p>The three models that swarm the ball the most also happen to be the bottom three teams on the leaderboard. The top five, by comparison, stay between 15% and 26%. In other words, weaker models behave like kids when they first start playing soccer. They run towards the ball, leaving the rest of the pitch wide open for possible attacks. Rather than coordinating defensive responsibilities across the field, weaker models assign themselves the same job. In one tick against GPT-5.6 Sol, all four Haiku outfield players announce that they're moving to intercept the same ball carrier:</p>
+<blockquote>
+<p>A1: "cutting in front of B2 at (37,46) to block its path west"<br>
+A2: "cutting B2's path west at (34,49.5)"<br>
+A3: "moving to (38,47) to get into B2's path and tackle"<br>
+A4: "closing B2 from the right side, will tackle if ball comes within reach"</p>
+</blockquote>
+<p>Despite announcing their intentions, they converge on the same player and continue following the carrier instead of spreading out to cover the rest of the field (Figure 2).</p>
+<figure><a href="replays/haiku-5-5-vs-gpt-56-sol-home.html?t=21&amp;autoplay"><img alt="Four Claude Haiku 5.5 players, in orange, converge on the same GPT-5.6 Sol carrier" src="media/same-job.gif" /></a><figcaption><b>Figure 2.</b> Haiku (orange) against GPT-5.6 Sol, ticks 21–27: all four outfield players converge on one carrier. Click the clip to open the full replay.</figcaption></figure>
+<p>Against GPT-6.1 Sol, the same behavior has more immediate consequences (Figure 3). All four Haiku players chase the ball carrier, A2, down the wing, leaving its three teammates unmarked. A2 takes advantage of the open space and scores.</p>
+<p>Even Sol's goalkeeper notices what's happening:</p>
+<blockquote>
+<p>"all four defenders are chasing A2."</p>
+</blockquote>
+<p>Indeed, Sol, indeed.</p>
+<figure><a href="replays/haiku-5-5-vs-gpt-61-sol-away.html?t=3&amp;autoplay"><img alt="All four Claude Haiku 5.5 players, in blue, chase GPT-6.1 Sol's carrier and Sol scores" src="media/swarm.gif" /></a><figcaption><b>Figure 3.</b> GPT-6.1 Sol (orange) against Haiku (blue), ticks 3–9: all four Haiku players chase the carrier A2, and A2 scores.</figcaption></figure>
+<p>The interesting failure here isn't that the defenders make individually unreasonable decisions. Closing down a ball carrier is often the right thing to do. The problem is that <strong>all four players independently decide to do it, without accounting for what their teammates are already doing.</strong></p>
+<p>In other words, reasonable individual decisions can add up to a poor collective strategy.</p>
+<h3 id="2-strong-teams-keep-someone-home">2. Strong teams keep someone home</h3>
+<p>When a team attacks, does anyone stay behind to defend against a potential counterattack?</p>
+<p>Figure 4 measures how often a team keeps an outfield player at least 20 units behind the ball while attacking. The top five teams do this on 12–16% of attacking ticks, compared to just 2–4% for Sonnet, Luna, and Haiku.</p>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/rest-defence-narrow.svg"><img alt="Someone stays back, by model" src="media/charts/rest-defence.svg" /></picture><figcaption><b>Figure 4.</b> Share of attacking ticks with an outfield player 20+ units behind the ball.</figcaption></figure>
+<p>What's interesting is that <strong>this defensive role emerges without any pre-assigned positions or centralized planning</strong>. A player will often recognize that someone needs to stay back and volunteer for the job. On Astra, GPT-6.1 Sol, Fable, and Opus, the player holding back explicitly announces its intention 65–100% of the time:</p>
+<blockquote>
+<p>"Holding central cover behind attack; guarding against a counter"</p>
+</blockquote>
+<p>This is a nice example of spontaneous division of responsibilities. Rather than everyone pursuing the objective of scoring, one player assigns itself to protect the team against a possible loss of possession. When nobody takes on that responsibility, counterattacks can cost the team many goals. Luna and Haiku each conceded 9 goals on counterattacks with nobody back. Astra, by comparison, conceded only 1, and Fable none.</p>
+<p>In Figure 5, GPT-6.1 Sol's B1 holds its position near the centre circle while the other three players attack. If possession is lost, there's still someone between the ball and the goal. The team maintains defensive cover without needing an explicitly assigned defender.</p>
+<figure><a href="replays/sonnet-5-5-vs-gpt-61-sol-home.html?t=40&amp;autoplay"><img alt="GPT-6.1 Sol, in blue: B1 holds the centre circle while three teammates attack and score" src="media/rest-defence.gif" /></a><figcaption><b>Figure 5.</b> Someone home: GPT-6.1 Sol (blue). B1 holds the centre circle while the other three attack, and B3 scores.</figcaption></figure>
+<p>Figure 6 shows the opposite. All four Luna outfield players push forward, leaving nobody behind. When GPT-5.6 Sol intercepts the ball, there's nothing between its attacker and Luna's goalkeeper. Sol's B4 carries the ball halfway across the pitch and scores.</p>
+<figure><a href="replays/luna-vs-gpt56-sol.html?t=39&amp;autoplay"><img alt="GPT-6 Luna, in orange: all four outfield players push forward and GPT-5.6 Sol scores on the counter" src="media/nobody-home.gif" /></a><figcaption><b>Figure 6.</b> Nobody home: Luna (orange). All four Luna outfield players push into GPT-5.6 Sol's half. Sol intercepts, and B4 carries the ball half the pitch with every Luna player behind it, and scores.</figcaption></figure>
+<p>Stronger teams recognize a responsibility that hasn't been explicitly assigned to anyone and organize themselves to fulfill it.</p>
+<h3 id="3-some-teams-direct-each-other-others-say-where-theyll-be">3. Some teams direct each other, others say where they'll be</h3>
+<p>There are two distinct communication patterns in the traces: every model announces what it intends to do, but some also tell their teammates what to do.</p>
+<p>Figure 7 shows how these styles differ across models.</p>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/talk-style-narrow.svg"><img alt="How each team talks, by model" src="media/charts/talk-style.svg" /></picture><figcaption><b>Figure 7.</b> Share of each team's outfield shouts that tell a teammate what to do and that announce the speaker's own move. Hand-labelled random sample of 100 shouts per model.</figcaption></figure>
+<p>Almost every shout from every model says what the speaker intends to do (80–100%). However, some models tend to order their teammates around: 97% of Opus's and Fable's shouts tell a teammate what to do, against 57–58% for Astra and GPT-6.1 Sol. These differences also appear in how teammates respond. <strong>72% of Opus's and 74% of Fable's passes to a teammate go to one who had just asked for the ball outright, compared to 16% for Astra and 11% for GPT-6.1 Sol. Yet for all four, about 90% of passes go to a teammate who had at least said it was open.</strong></p>
+<p>Astra and GPT-6.1 Sol tend to announce their intended movements, leaving the player with possession to decide how to use that information. Rather than asking for the ball, they communicate where they'll be. Neither approach appears inherently superior. Both styles are represented among the top three teams: Fable (2nd) directs in almost every shout, while Astra (1st) and GPT-6.1 Sol (3rd) direct in just over half.</p>
+<p><strong>Directing: asking for the ball</strong></p>
+<p>In Figure 8, Opus's A1 explicitly asks A4 to pass ahead of its run:</p>
+<blockquote>
+<p>"open at (65,42) heading to box - A4 pass ahead of me."</p>
+</blockquote>
+<p>On the next tick, A4 plays exactly that pass, and the ball reaches A1.</p>
+<figure><a href="replays/gpt-6-astra-vs-opus-5-5-away.html?t=3&amp;autoplay"><img alt="Claude Opus 5.5, in orange: A1 asks A4 for the ball and A4 passes to it" src="media/directing.gif" /></a><figcaption><b>Figure 8.</b> Directing: Claude Opus 5.5 (orange) against GPT-6 Astra, ticks 2–6. A1 asks for the ball and A4 passes it there.</figcaption></figure>
+<p><strong>Announcing: communicating intentions</strong></p>
+<p>In Figure 9, during a well-coordinated GPT-6.1 Sol attack, two players position themselves to receive the ball. B1 explicitly asks for a pass, while B4 announces where it intends to run. B2 eventually chooses B4's run rather than following B1's request.</p>
+<ul>
+<li><strong>Tick 45.</strong> Sol wins the ball back. B4 announces: <em>"Advancing central to x60 y31; ready for a diagonal through pass."</em></li>
+<li><strong>Tick 48.</strong> B2 collects the ball on the wing. B1 asks: <em>"B2, diagonal to me near (74,21)."</em> Meanwhile, B4 announces: <em>"Attacking far-post lane (84,35)."</em></li>
+<li><strong>Tick 49.</strong> B1 asks again: <em>"B2, ready inside at (78,24)."</em> Instead, B2 plays a diagonal pass into B4's announced lane, to (85,35): <em>"B4: diagonal incoming; meet ball at (85,35) next tick, then finish!"</em></li>
+<li><strong>Ticks 50–51.</strong> B4 collects the pass at the far post and scores.</li>
+</ul>
+<figure><a href="replays/gpt-6-astra-vs-gpt-61-sol-home.html?t=45&amp;autoplay"><img alt="GPT-6.1 Sol, in blue: B4 announces a far-post run, B2 passes to that spot and B4 scores" src="media/announced-run.gif" /></a><figcaption><b>Figure 9.</b> Announcing: GPT-6.1 Sol (blue) against GPT-6 Astra, ticks 45–51. B2 passes into B4's announced run instead of to B1, who asked for the ball, and B4 scores.</figcaption></figure>
+<h3 id="4-strong-teams-pass-into-announced-runs">4. Strong teams pass into announced runs</h3>
+<p>Some of the most impressive moments in soccer happen when a player passes into an empty space, knowing that a teammate will arrive there at the right time. We define a <em>through ball</em> as a pass aimed at least 5 units away from the nearest teammate, not counting shots. Since the passer and receiver choose their actions simultaneously, neither knows what the other is about to do. </p>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/through-balls-narrow.svg"><img alt="Through balls into a run, by model" src="media/charts/through-balls.svg" /></picture><figcaption><b>Figure 10.</b> Share of through balls (passes aimed 5+ units from the nearest teammate, excluding shots) where that teammate was already running to the spot. The number after each bar is how many through balls the team played; Haiku played none.</figcaption></figure>
+<p>Opus, Astra and GPT-6.1 Sol lead at 53–57%, while Sonnet and Luna manage 24–26%. <strong>Haiku never played a single through ball</strong>: every pass it aimed into space was a shot at goal. Across all teams, 85% of through balls into an existing run successfully reach a teammate, compared to 65% of the remaining through balls.</p>
+<p>Fable is an interesting exception among the stronger teams. It rarely plays passes into teammates' runs, instead tending to pass to players who explicitly ask for the ball. This is consistent with the more directive communication style we saw in Finding 3.</p>
+<p>These runs aren't silent. In 93% of these passes, the receiver announced the run the tick before, saying where it was going or asking for the ball there. Figure 11 shows an example of this coordination pattern. Astra's B1 announces that it's <em>"open for diagonal pass"</em>. B4 then plays the ball into the space ahead of B1, who continues its run, receives the pass, and scores.</p>
+<figure><a href="replays/gpt-6-astra-vs-gpt-6-luna-away.html?t=47&amp;autoplay"><img alt="GPT-6 Astra, in blue, plays a through ball into a teammate's run and scores" src="media/through-ball.gif" /></a><figcaption><b>Figure 11.</b> GPT-6 Astra (blue) against Luna, ticks 47–52: B4 plays the ball into B1's run, and B1 scores.</figcaption></figure>
+<h2 id="additional-experiments-do-talking-and-formations-help">Additional Experiments: Do talking and formations help?</h2>
+<p>The findings so far suggest that stronger teams coordinate more effectively, but that leaves a couple of interesting questions. Does communication actually improve performance? And can weaker teams coordinate better if we give them an explicit formation? To investigate, I ran two experiments: one removing communication and another assigning players predefined areas of the pitch. There are only 6–10 games per condition, so these results are exploratory.</p>
+<h3 id="does-talking-help">Does talking help?</h3>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/talk-vs-silent-narrow.svg"><img alt="Points won by the talking and the silent side" src="media/charts/talk-vs-silent.svg" /></picture><figcaption><b>Figure 12.</b> Points won (1 for a win, ½ for a draw) by the talking and the silent side; each model plays itself, swapping sides every game.</figcaption></figure>
+<p>The results suggest that communication might help stronger models more than weaker ones. GPT-6.1 Sol's talking side won six of the eight games that had a winner, finishing with a record of 6–2–2 and outscoring its silent counterpart 10–6. Haiku and Luna, on the other hand, performed exactly as well with or without communication, each finishing 3–0–3. Of course, the sample is too small to draw strong conclusions. Even if communication had no effect, a split this lopsided in the talking side's favour would happen roughly one time in seven.</p>
+<p>Still, communication isn't entirely useless for weaker teams. Haiku's tendency to send multiple players after the ball dropped from 62% to 45% when communication was enabled, even though this didn't translate into more wins. Simply giving agents the ability to talk doesn't guarantee they'll know how to use it.</p>
+<h3 id="does-assigning-a-formation-help">Does assigning a formation help?</h3>
+<figure><picture><source media="(max-width: 600px)" srcset="media/charts/formation-narrow.svg"><img alt="2+ players head for the ball, with and without a formation" src="media/charts/formation.svg" /></picture><figcaption><b>Figure 13.</b> Share of the opponent's possession ticks with two or more players heading for the ball, with and without a formation; each model plays itself.</figcaption></figure>
+<p>When given assigned areas of the pitch, Luna's players almost completely stop swarming the ball. The share of defensive ticks with multiple players chasing the ball drops from <strong>41% to just 4%</strong>, and the players spread out more than twice as far as before. Luna's structured team also beats its unstructured counterpart 3–1–2. Haiku shows a more mixed result. Its players spread out and become more likely to leave someone behind during attacks (4% → 15%), but they still frequently chase the ball (49%). The structured team doesn't win a single game, finishing 0–3–3.</p>
+<p>These results suggest that weaker models can improve some aspects of their coordination when given explicit structure, but that structure doesn't necessarily translate into better performance. The stronger models appear more capable of organizing themselves without predefined roles, while weaker models benefit, at least in their positioning, from having those responsibilities specified.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>
+<p><strong>Few games per model.</strong> Due to cost, each model only played between 6 and 20 games, so the middle of the leaderboard is far from settled. Moreover, much of the analysis needs more experiments to tighten the confidence intervals. The additional experiments section used only 6–10 games per condition.</p>
+</li>
+<li>
+<p><strong>One environment and configuration.</strong> The benchmark uses five-a-side soccer, providers' default reasoning effort, and communication delivered one tick later. Different rules, team sizes, or reasoning settings could change the results.</p>
+</li>
+<li>
+<p><strong>Heuristic coordination metrics.</strong> The measurements of swarming and defensive positioning rely on distance thresholds extracted from the game logs.</p>
+</li>
+</ul>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>
+<p><strong>Full eleven-a-side teams.</strong> Does coordination improve or break down as the number of agents increases? Can models still spontaneously divide responsibilities when there are more players to coordinate?</p>
+</li>
+<li>
+<p><strong>More communication experiments.</strong> In particular, I'd like to run more talking-versus-silent games with stronger models to determine whether communication genuinely improves performance.</p>
+</li>
+<li>
+<p><strong>Mixed-model teams.</strong> The runner already supports teams composed of different models. Which models make good teammates? Can a stronger model help organize weaker agents, or does mixing communication styles make coordination harder?</p>
+</li>
+<li>
+<p><strong>More games and reasoning-effort sweeps.</strong> Larger samples would help establish more reliable rankings, while varying reasoning effort could reveal whether additional individual reasoning translates into better collective behavior.</p>
+</li>
+</ul>
+  </article>
+  <footer>Built from <a href="https://github.com/Darksinian/soccer-eval/blob/main/docs/writeup.md">docs/writeup.md</a>.</footer>
+</div>
+</body>
+</html>

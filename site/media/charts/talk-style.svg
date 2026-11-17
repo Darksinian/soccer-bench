@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="760" height="270" role="img" aria-label="How each team talks, by model">
+<style>
+  .ink { fill: #1b1e22; } .soft { fill: #5f6670; } .track { fill: #eef0ec; }
+  .claude { fill: #d9682a; } .gpt { fill: #3b82c4; } .muted { fill: #b9bdb6; }
+  text { font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #eceeea; } .soft { fill: #9aa19b; } .track { fill: #1f2428; }
+    .claude { fill: #e8834b; } .gpt { fill: #5d9bd8; } .muted { fill: #4a514c; }
+  }
+</style>
+<rect class="claude" x="642" y="6" width="10" height="10" rx="2"/><text class="soft" x="657" y="15" font-size="12">Claude</text><rect class="gpt" x="708" y="6" width="10" height="10" rx="2"/><text class="soft" x="723" y="15" font-size="12">GPT</text>
+<text class="soft" x="150.0" y="15" font-size="12" font-weight="600">Tells a teammate what to do</text>
+<text class="ink" x="138" y="45" font-size="13" text-anchor="end">GPT-6 Astra</text>
+<rect class="track" x="150.0" y="33" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="33" width="115.4" height="16" rx="3"/><text class="ink" x="357.0" y="45" font-size="13">58%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="75" font-size="13" text-anchor="end">Claude Fable 5.2</text>
+<rect class="track" x="150.0" y="63" width="199.0" height="16" rx="3"/><rect class="claude" x="150.0" y="63" width="193.0" height="16" rx="3"/><text class="ink" x="357.0" y="75" font-size="13">97%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="105" font-size="13" text-anchor="end">GPT-6.1 Sol</text>
+<rect class="track" x="150.0" y="93" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="93" width="113.4" height="16" rx="3"/><text class="ink" x="357.0" y="105" font-size="13">57%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="135" font-size="13" text-anchor="end">Claude Opus 5.5</text>
+<rect class="track" x="150.0" y="123" width="199.0" height="16" rx="3"/><rect class="claude" x="150.0" y="123" width="193.0" height="16" rx="3"/><text class="ink" x="357.0" y="135" font-size="13">97%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="165" font-size="13" text-anchor="end">GPT-5.6 Sol</text>
+<rect class="track" x="150.0" y="153" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="153" width="163.2" height="16" rx="3"/><text class="ink" x="357.0" y="165" font-size="13">82%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="195" font-size="13" text-anchor="end">Claude Sonnet 5.5</text>
+<rect class="track" x="150.0" y="183" width="199.0" height="16" rx="3"/><rect class="claude" x="150.0" y="183" width="143.3" height="16" rx="3"/><text class="ink" x="357.0" y="195" font-size="13">72%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="225" font-size="13" text-anchor="end">GPT-6 Luna</text>
+<rect class="track" x="150.0" y="213" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="213" width="101.5" height="16" rx="3"/><text class="ink" x="357.0" y="225" font-size="13">51%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="138" y="255" font-size="13" text-anchor="end">Claude Haiku 5.5</text>
+<rect class="track" x="150.0" y="243" width="199.0" height="16" rx="3"/><rect class="claude" x="150.0" y="243" width="117.4" height="16" rx="3"/><text class="ink" x="357.0" y="255" font-size="13">59%<tspan class="soft" font-size="12"></tspan></text>
+<text class="soft" x="471.0" y="15" font-size="12" font-weight="600">Says what it is doing itself</text>
+<rect class="track" x="471.0" y="33" width="199.0" height="16" rx="3"/><rect class="gpt" x="471.0" y="33" width="199.0" height="16" rx="3"/><text class="ink" x="678.0" y="45" font-size="13">100%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="63" width="199.0" height="16" rx="3"/><rect class="claude" x="471.0" y="63" width="187.1" height="16" rx="3"/><text class="ink" x="678.0" y="75" font-size="13">94%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="93" width="199.0" height="16" rx="3"/><rect class="gpt" x="471.0" y="93" width="193.0" height="16" rx="3"/><text class="ink" x="678.0" y="105" font-size="13">97%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="123" width="199.0" height="16" rx="3"/><rect class="claude" x="471.0" y="123" width="159.2" height="16" rx="3"/><text class="ink" x="678.0" y="135" font-size="13">80%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="153" width="199.0" height="16" rx="3"/><rect class="gpt" x="471.0" y="153" width="175.1" height="16" rx="3"/><text class="ink" x="678.0" y="165" font-size="13">88%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="183" width="199.0" height="16" rx="3"/><rect class="claude" x="471.0" y="183" width="195.0" height="16" rx="3"/><text class="ink" x="678.0" y="195" font-size="13">98%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="213" width="199.0" height="16" rx="3"/><rect class="gpt" x="471.0" y="213" width="167.2" height="16" rx="3"/><text class="ink" x="678.0" y="225" font-size="13">84%<tspan class="soft" font-size="12"></tspan></text>
+<rect class="track" x="471.0" y="243" width="199.0" height="16" rx="3"/><rect class="claude" x="471.0" y="243" width="191.0" height="16" rx="3"/><text class="ink" x="678.0" y="255" font-size="13">96%<tspan class="soft" font-size="12"></tspan></text>
+</svg>
