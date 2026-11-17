@@ -49,8 +49,6 @@ head-to-head and every shout are in [`results/`](results/standings.md).
   GPT-6.1 Sol mostly announce where they'll be. Both styles are in the top three.
 - **Passes into a run are announced.** In 93% of them, the receiver had said where it was going the
   tick before.
-- **Price doesn't predict rank.** GPT-6.1 Sol is third at $1.31 a game; GPT-5.6 Sol costs four
-  times as much and is fifth.
 - **Talking seems to help the strong model, not the weak ones.** GPT-6.1 Sol's talking side beat
   its silent self 6–2–2; Haiku and Luna went 3–0–3 either way. Preliminary: 6–10 games each.
 - **A formation stops Luna swarming but not Haiku, and doesn't reliably make them win.**
@@ -60,7 +58,7 @@ head-to-head and every shout are in [`results/`](results/standings.md).
 | <img src="docs/media/swarm.gif" width="400" alt="All four Claude Haiku 5.5 outfield players chase one carrier and GPT-6.1 Sol scores"> | <img src="docs/media/announced-run.gif" width="400" alt="GPT-6.1 Sol's B4 announces a far-post run, B2 passes to that spot and B4 scores"> |
 | **1. Swarming.** All four Haiku players chase one carrier; GPT-6.1 Sol walks it in. | **2. Announcing.** Sol's B4 calls "Attacking far-post lane (84,35)"; B2 passes to (85,35) and B4 scores. |
 | <img src="docs/media/through-ball.gif" width="400" alt="GPT-6 Astra plays a through ball into a teammate's run and scores"> | <img src="docs/media/rest-defence.gif" width="400" alt="GPT-6.1 Sol's B1 holds at the centre circle while the other three attack and score"> |
-| **3. Passing into a run.** Astra's B4 plays into the space ahead of B1, who was already running; B1 scores. | **4. Someone home.** Sol's B1 holds the centre circle "guarding against a counter" while three attack. |
+| **3. Passing into a run.** Astra's B4 plays into the space ahead of B1, who was already running; B1 scores. | **4. Keeping someone home.** Sol's B1 holds the centre circle "guarding against a counter" while three attack. |
 
 ## How it works
 
@@ -68,11 +66,6 @@ Each tick, every player (goalkeeper included) gets the same snapshot of the fiel
 call to its team's model, all at once; nobody sees anyone else's decision. A player can move, pass
 or stay, and shout up to 80 characters that its teammates hear on the next tick. Shouts are the only
 memory a player has.
-
-Single-agent harnesses (Claude Code, Codex, mini-SWE-agent) can't run ten simultaneous players, so
-Soccer-Bench ships its own runner ([`run.py`](run.py)). Every game log records each player's exact
-action per tick, and [`soccer_eval/verify.py`](soccer_eval/verify.py) replays it to re-check the
-score: all 58 leaderboard games agree.
 
 ## Quickstart
 
