@@ -19,9 +19,6 @@ pass or stay, and can shout a short message to their teammates.
 
 ## Leaderboard
 
-8 models, 58 games, five-a-side, shouting on, every model playing the others from both sides of
-the pitch at its provider's default reasoning effort.
-
 ![Ratings](results/ratings.svg)
 
 | # | Model | Rating (95% CI) | W-D-L | Cost per game |
