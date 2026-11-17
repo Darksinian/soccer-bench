@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 266" width="360" height="266" role="img" aria-label="2+ players head for the ball, with and without a formation">
+<style>
+  .ink { fill: #1b1e22; } .soft { fill: #5f6670; } .track { fill: #eef0ec; }
+  .claude { fill: #d9682a; } .gpt { fill: #3b82c4; } .muted { fill: #b9bdb6; }
+  text { font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #eceeea; } .soft { fill: #9aa19b; } .track { fill: #1f2428; }
+    .claude { fill: #e8834b; } .gpt { fill: #5d9bd8; } .muted { fill: #4a514c; }
+  }
+</style>
+<rect class="claude" x="242" y="6" width="10" height="10" rx="2"/><text class="soft" x="257" y="15" font-size="12">Claude</text><rect class="gpt" x="308" y="6" width="10" height="10" rx="2"/><text class="soft" x="323" y="15" font-size="12">GPT</text>
+<text class="soft" x="0" y="41" font-size="12" font-weight="600">With a formation</text>
+<text class="ink" x="0" y="63" font-size="13">Claude Haiku 5.5</text>
+<rect class="track" x="0.0" y="69" width="250.0" height="16" rx="3"/><rect class="claude" x="0.0" y="69" width="122.4" height="16" rx="3"/><text class="ink" x="258.0" y="81" font-size="13">49%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="0" y="107" font-size="13">GPT-6 Luna</text>
+<rect class="track" x="0.0" y="113" width="250.0" height="16" rx="3"/><rect class="gpt" x="0.0" y="113" width="10.1" height="16" rx="3"/><text class="ink" x="258.0" y="125" font-size="13">4%<tspan class="soft" font-size="12"></tspan></text>
+<text class="soft" x="0" y="165" font-size="12" font-weight="600">Without</text>
+<text class="ink" x="0" y="187" font-size="13">Claude Haiku 5.5</text>
+<rect class="track" x="0.0" y="193" width="250.0" height="16" rx="3"/><rect class="muted" x="0.0" y="193" width="126.4" height="16" rx="3"/><text class="ink" x="258.0" y="205" font-size="13">51%<tspan class="soft" font-size="12"></tspan></text>
+<text class="ink" x="0" y="231" font-size="13">GPT-6 Luna</text>
+<rect class="track" x="0.0" y="237" width="250.0" height="16" rx="3"/><rect class="muted" x="0.0" y="237" width="102.8" height="16" rx="3"/><text class="ink" x="258.0" y="249" font-size="13">41%<tspan class="soft" font-size="12"></tspan></text>
+</svg>

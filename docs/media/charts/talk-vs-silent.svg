@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 120" width="760" height="120" role="img" aria-label="Points won by the talking and the silent side">
+<style>
+  .ink { fill: #1b1e22; } .soft { fill: #5f6670; } .track { fill: #eef0ec; }
+  .claude { fill: #d9682a; } .gpt { fill: #3b82c4; } .muted { fill: #b9bdb6; }
+  text { font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #eceeea; } .soft { fill: #9aa19b; } .track { fill: #1f2428; }
+    .claude { fill: #e8834b; } .gpt { fill: #5d9bd8; } .muted { fill: #4a514c; }
+  }
+</style>
+<rect class="claude" x="642" y="6" width="10" height="10" rx="2"/><text class="soft" x="657" y="15" font-size="12">Claude</text><rect class="gpt" x="708" y="6" width="10" height="10" rx="2"/><text class="soft" x="723" y="15" font-size="12">GPT</text>
+<text class="soft" x="150.0" y="15" font-size="12" font-weight="600">Talking side</text>
+<text class="ink" x="138" y="45" font-size="13" text-anchor="end">GPT-6.1 Sol</text>
+<rect class="track" x="150.0" y="33" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="33" width="139.3" height="16" rx="3"/><text class="ink" x="357.0" y="45" font-size="13">70%<tspan class="soft" font-size="12"> 6-2-2</tspan></text>
+<text class="ink" x="138" y="75" font-size="13" text-anchor="end">Claude Haiku 5.5</text>
+<rect class="track" x="150.0" y="63" width="199.0" height="16" rx="3"/><rect class="claude" x="150.0" y="63" width="99.5" height="16" rx="3"/><text class="ink" x="357.0" y="75" font-size="13">50%<tspan class="soft" font-size="12"> 3-0-3</tspan></text>
+<text class="ink" x="138" y="105" font-size="13" text-anchor="end">GPT-6 Luna</text>
+<rect class="track" x="150.0" y="93" width="199.0" height="16" rx="3"/><rect class="gpt" x="150.0" y="93" width="99.5" height="16" rx="3"/><text class="ink" x="357.0" y="105" font-size="13">50%<tspan class="soft" font-size="12"> 3-0-3</tspan></text>
+<text class="soft" x="471.0" y="15" font-size="12" font-weight="600">Silent side</text>
+<rect class="track" x="471.0" y="33" width="199.0" height="16" rx="3"/><rect class="muted" x="471.0" y="33" width="59.7" height="16" rx="3"/><text class="ink" x="678.0" y="45" font-size="13">30%<tspan class="soft" font-size="12"> 2-2-6</tspan></text>
+<rect class="track" x="471.0" y="63" width="199.0" height="16" rx="3"/><rect class="muted" x="471.0" y="63" width="99.5" height="16" rx="3"/><text class="ink" x="678.0" y="75" font-size="13">50%<tspan class="soft" font-size="12"> 3-0-3</tspan></text>
+<rect class="track" x="471.0" y="93" width="199.0" height="16" rx="3"/><rect class="muted" x="471.0" y="93" width="99.5" height="16" rx="3"/><text class="ink" x="678.0" y="105" font-size="13">50%<tspan class="soft" font-size="12"> 3-0-3</tspan></text>
+</svg>
