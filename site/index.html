@@ -19,19 +19,20 @@
 :root {
   --bg: #FFFFFF; --surface: #F6F7F4; --ink: #1B1E22; --soft: #474E57; --muted: #5F6670;
   --rule: #DDE2DA; --accent: #2F8550; --accent-light: #9ED8AE;
+  --row-hover: rgba(27, 30, 34, .04); --row-current: rgba(47, 133, 80, .10);
   --claude: #D9682A; --gpt: #3B82C4; --bot: #7A7F87; --whisker: #1B1E22;
   --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', Arial, sans-serif; --mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
-    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA; --row-hover: rgba(236, 238, 234, .05); --row-current: rgba(124, 203, 147, .12);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
-  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA; --row-hover: rgba(236, 238, 234, .05); --row-current: rgba(124, 203, 147, .12);
   color-scheme: dark;
 }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
@@ -132,15 +133,20 @@ section[id] { scroll-margin-top: 72px; }
 .upnext #count { white-space: nowrap; }
 .upnext .controls label, .upnext #count { font-size: 12px; }
 .upnext .strip .gallery { display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; gap: 0; padding: 0; flex: 1 1 0; min-height: 0; scroll-snap-type: none; }
-.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px 8px 9px; border-bottom: 1px solid var(--rule); border-left: 3px solid transparent; cursor: pointer; transition: background .12s; }
+.upnext .strip .cg:hover { background: var(--row-hover); }
 .upnext .cg .thumb { grid-row: 1 / span 4; width: 112px; height: 70px; aspect-ratio: auto; border-radius: 6px; }
 .upnext .cg > .cg-t:nth-child(2) { grid-row: 2; grid-column: 2; } .upnext .cg > .cg-t:nth-child(3) { grid-row: 3; grid-column: 2; }
 .upnext .cg .thumb .ticks { font-size: 10px; right: 4px; bottom: 4px; }
 .upnext .cg .thumb .badge { font-size: 9px; left: 4px; top: 4px; padding: 1px 4px; }
 .upnext .cg-t { font-size: 13px; gap: 6px; grid-template-columns: 9px minmax(0, 1fr) auto; }
 .upnext .cg-t .dot { width: 8px; height: 8px; }
-.upnext .cg.current { background: var(--bg); }
-.upnext .cg.current .thumb { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* The selected game: the whole row, not just its thumbnail, so it reads as what the player shows. */
+.upnext .cg.current, .upnext .cg.current:hover { background: var(--row-current); border-left-color: var(--accent); }
+.upnext .cg.current .thumb { outline: 0; }
+/* ▶ only on hover (or keyboard focus), not on the game already playing. */
+.upnext .cg .thumb .play { opacity: 0; }
+.upnext .cg:hover .thumb .play, .upnext .cg .thumb:focus-visible .play { opacity: 1; }
 @media (max-width: 1100px) { .theatre { grid-template-columns: 1fr; width: auto; margin-left: 0; transform: none; } .upnext { contain: none; height: 420px; } }
 .strip { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 18px; }
@@ -271,7 +277,7 @@ function renderList() {
 }
 
 document.addEventListener("click", (e) => {
-  const w = e.target.closest(".thumb");
+  const w = e.target.closest(".cg[data-id]");   // the whole row, not just its thumbnail
   if (w) {
     play(w.dataset.id, false);
     if ($("player").getBoundingClientRect().top < 0) $("player").scrollIntoView({ block: "start" });
@@ -300,7 +306,8 @@ $("player-frame").addEventListener("load", () => {
 fetch("leaderboard.json").then((r) => r.json()).then(renderBoard)
   .catch(() => { $("board").innerHTML = `<tr><td colspan="7" class="muted">The leaderboard didn’t load. Reload the page to try again.</td></tr>`; });
 fetch("games.json").then((r) => r.json()).then((games) => {
-  GAMES = games;
+  // The featured game opens the page, so it heads the list too: selected and in view from the start.
+  GAMES = [...games.filter((g) => g.id === FEATURED), ...games.filter((g) => g.id !== FEATURED)];
   const models = [...new Set(games.flatMap((g) => [g.a, g.b]))].sort();
   $("model").innerHTML += models.map((m) => `<option>${esc(m)}</option>`).join("");
   renderList();
