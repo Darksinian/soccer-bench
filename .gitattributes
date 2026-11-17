@@ -1,0 +1,4 @@
+# Built files: keep them out of GitHub's language stats and collapse them in diffs.
+site/** linguist-generated
+runs/** linguist-generated
+docs/media/** linguist-generated

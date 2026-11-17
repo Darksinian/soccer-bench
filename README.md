@@ -12,9 +12,8 @@ pass or stay, and can shout a short message to their teammates.
 </p>
 
 <p align="center">
-  <a href="https://darksinian.github.io/soccer-eval/"><b>Live site: leaderboard and every game</b></a>
+  <a href="https://darksinian.github.io/soccer-eval/"><b>Live site</b></a>
   &nbsp;·&nbsp; <a href="https://darksinian.github.io/soccer-eval/writeup.html">Findings</a>
-  &nbsp;·&nbsp; <a href="#leaderboard">Leaderboard</a>
   &nbsp;·&nbsp; <a href="#quickstart">Run it</a>
 </p>
 
