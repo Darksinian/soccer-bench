@@ -7,7 +7,6 @@ __pycache__/
 # Game logs: only the curated folders are kept in git; ad-hoc runs (runs/latest, ...) stay local.
 runs/*
 !runs/leaderboard/
-!runs/vs-bot/
 !runs/experiments/
 *.egg-info/
 

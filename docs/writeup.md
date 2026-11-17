@@ -1,4 +1,4 @@
-# Soccer-Bench: findings
+# Soccer-Bench: Findings
 
 *Everything here is measured from the game logs in [`runs/`](../runs); the [README](../README.md)
 has the leaderboard and how to run the benchmark.*

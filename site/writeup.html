@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soccer-Bench Findings</title>
+<meta name="author" content="Mohamed Otefi">
 <meta name="description" content="What 58 games of five-a-side soccer between 8 language models show about how they coordinate.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Soccer-Bench Findings">
@@ -13,25 +14,27 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@momotefi">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: a benchmark home page — introduction, how it works, leaderboard, then every game with a player. */
 :root {
   --bg: #FFFFFF; --surface: #F6F7F4; --ink: #1B1E22; --soft: #474E57; --muted: #5F6670;
   --rule: #DDE2DA; --accent: #2F8550; --accent-light: #9ED8AE;
+  --row-hover: rgba(27, 30, 34, .04); --row-current: rgba(47, 133, 80, .10);
   --claude: #D9682A; --gpt: #3B82C4; --bot: #7A7F87; --whisker: #1B1E22;
   --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', Arial, sans-serif; --mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
-    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+    --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA; --row-hover: rgba(236, 238, 234, .05); --row-current: rgba(124, 203, 147, .12);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #14171A; --surface: #1C2024; --ink: #ECEEEA; --soft: #C3C8C2; --muted: #9AA19B;
-  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA;
+  --rule: #2E3532; --accent: #7CCB93; --accent-light: #3C6B4A; --claude: #E8834B; --gpt: #5D9BD8; --bot: #9AA0A8; --whisker: #ECEEEA; --row-hover: rgba(236, 238, 234, .05); --row-current: rgba(124, 203, 147, .12);
   color-scheme: dark;
 }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
@@ -132,15 +135,20 @@ section[id] { scroll-margin-top: 72px; }
 .upnext #count { white-space: nowrap; }
 .upnext .controls label, .upnext #count { font-size: 12px; }
 .upnext .strip .gallery { display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; gap: 0; padding: 0; flex: 1 1 0; min-height: 0; scroll-snap-type: none; }
-.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.upnext .strip .cg { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 10px; row-gap: 2px; padding: 8px 12px 8px 9px; border-bottom: 1px solid var(--rule); border-left: 3px solid transparent; cursor: pointer; transition: background .12s; }
+.upnext .strip .cg:hover { background: var(--row-hover); }
 .upnext .cg .thumb { grid-row: 1 / span 4; width: 112px; height: 70px; aspect-ratio: auto; border-radius: 6px; }
 .upnext .cg > .cg-t:nth-child(2) { grid-row: 2; grid-column: 2; } .upnext .cg > .cg-t:nth-child(3) { grid-row: 3; grid-column: 2; }
 .upnext .cg .thumb .ticks { font-size: 10px; right: 4px; bottom: 4px; }
 .upnext .cg .thumb .badge { font-size: 9px; left: 4px; top: 4px; padding: 1px 4px; }
 .upnext .cg-t { font-size: 13px; gap: 6px; grid-template-columns: 9px minmax(0, 1fr) auto; }
 .upnext .cg-t .dot { width: 8px; height: 8px; }
-.upnext .cg.current { background: var(--bg); }
-.upnext .cg.current .thumb { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* The selected game: the whole row, not just its thumbnail, so it reads as what the player shows. */
+.upnext .cg.current, .upnext .cg.current:hover { background: var(--row-current); border-left-color: var(--accent); }
+.upnext .cg.current .thumb { outline: 0; }
+/* ▶ only on hover (or keyboard focus), not on the game already playing. */
+.upnext .cg .thumb .play { opacity: 0; }
+.upnext .cg:hover .thumb .play, .upnext .cg .thumb:focus-visible .play { opacity: 1; }
 @media (max-width: 1100px) { .theatre { grid-template-columns: 1fr; width: auto; margin-left: 0; transform: none; } .upnext { contain: none; height: 420px; } }
 .strip { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 18px; }
@@ -167,6 +175,11 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
 .writeup th:empty { padding: 0; border: 0; }
 .writeup .data th, .writeup .data td { white-space: nowrap; }
 .writeup a[href*="?t="] { white-space: nowrap; font-weight: 500; }
+.writeup .page-head { display: flex; flex-direction: column; gap: 10px; }
+.writeup .page-head h1 { font-size: clamp(32px, 5vw, 44px); }
+.writeup .byline { margin: 0; font-size: 15px; color: var(--muted); }
+.writeup .byline a { color: var(--ink); font-weight: 500; text-decoration: none; }
+.writeup .byline a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -174,8 +187,8 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
   <div class="topbar-in">
     <a class="brand" href="./"><span aria-hidden="true">⚽</span><span class="brand-name"> Soccer-Bench</span></a>
     <div class="links">
-      <a href="./#leaderboard">Leaderboard</a>
       <a href="./#games">Games</a>
+      <a href="./#leaderboard">Leaderboard</a>
       <a href="writeup.html" aria-current="page">Findings</a>
       <a class="gh" href="https://github.com/Darksinian/soccer-eval" aria-label="Code and data on GitHub" title="Code and data on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
     </div>
@@ -183,6 +196,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule)
 </nav>
 <div class="wrap">
   <article class="writeup">
+<header class="page-head"><h1>Soccer-Bench: Findings</h1><p class="byline">By <a href="https://x.com/momotefi">Mohamed Otefi</a> · November 2026</p></header>
 <h2 id="motivation">Motivation</h2>
 <p>In the DeepMind Institute essay <a href="https://institute.deepmind.com/essays/the-economics-of-intelligence/"><em>The Economics of Intelligence: How and when does AGI lead to economic transformation?</em></a>, Imas, Koh, and Legg argue that one reason the economy has remained relatively unchanged despite the explosion in model capabilities is the difficulty of coordinating multiple agents. They argue that "[o]nce coordination reaches a critical threshold, it triggers large, abrupt jumps in market concentration, employment, and wages." Most capability benchmarks focus on individual agents, whereas the relevant economic unit is often the organization. The authors rightfully argue that we need benchmarks that examine how agents communicate, divide responsibilities, and coordinate toward shared objectives. This benchmark is a loose first attempt to measure some of these capabilities in a familiar setting.</p>
 <p>When kids first start playing soccer, they tend to chase the ball together with little regard for positioning or strategy. As they improve, some structure begins to emerge where players hold positions, make passes, and start anticipating movements. At the pro level, teams exhibit sophisticated coordination with little explicit communication. Soccer is particularly interesting because it requires several forms of coordination:</p>
@@ -317,7 +331,6 @@ A4: "closing B2 from the right side, will tackle if ball comes within reach"</p>
 </li>
 </ul>
   </article>
-  <footer>Built from <a href="https://github.com/Darksinian/soccer-eval/blob/main/docs/writeup.md">docs/writeup.md</a>.</footer>
 </div>
 </body>
 </html>

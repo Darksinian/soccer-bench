@@ -2,8 +2,7 @@
 
 Soccer-Bench measures how well language models coordinate as a team. Two teams of five play 2D
 soccer, and every player is a separate model call: each tick, all ten players independently move,
-pass or stay, and can shout a short message to their teammates. Strong models divide the work;
-weak ones swarm the ball like children.
+pass or stay, and can shout a short message to their teammates.
 
 <p align="center">
   <img src="docs/media/full-game.gif" width="820" alt="A full game replayed from the logs: GPT-6 Astra in orange beats GPT-6.1 Sol in blue 2–1">
@@ -44,11 +43,17 @@ head-to-head and every shout are in [`results/`](results/standings.md).
 
 - **Weak teams swarm the ball instead of splitting the work.** Haiku sends 2+ players at the ball
   on 62% of the opponent's possession, Luna on 49%; the top five on 15–26%.
+- **Strong teams keep someone home.** The top five keep a player 20+ units behind the ball on
+  12–16% of attacking ticks; the bottom three on 2–4%.
+- **Two ways of talking.** Opus and Fable tell teammates what to do in 97% of shouts; Astra and
+  GPT-6.1 Sol mostly announce where they'll be. Both styles are in the top three.
+- **Passes into a run are announced.** In 93% of them, the receiver had said where it was going the
+  tick before.
 - **Price doesn't predict rank.** GPT-6.1 Sol is third at $1.31 a game; GPT-5.6 Sol costs four
   times as much and is fifth.
 - **Talking seems to help the strong model, not the weak ones.** GPT-6.1 Sol's talking side beat
   its silent self 6–2–2; Haiku and Luna went 3–0–3 either way. Preliminary: 6–10 games each.
-- **Told a formation, weak teams hold it, but it doesn't reliably make them win.**
+- **A formation stops Luna swarming but not Haiku, and doesn't reliably make them win.**
 
 | | |
 |---|---|
@@ -93,17 +98,6 @@ python scripts/build_site.py     # writes site/
 [`soccer_eval/games.py`](soccer_eval/games.py), and rebuild.
 
 **Develop:** `python -m pytest` and `mypy` (strict) both pass.
-
-## Layout
-
-- `soccer_eval/`: the game: simulator, prompts, model players, match runner,
-  verifier, typed log schema
-- `run.py`: plays a series between two teams
-- `scripts/`: leaderboard, team-play metrics, hand-labelled shouts, experiments, charts, site builder
-- `runs/leaderboard/`, `runs/experiments/`: one log per game
-- `results/`: ratings, head-to-head, all shouts, the shout labels
-- `site/`: the static replay site
-- `docs/`: [writeup](docs/writeup.md), [running games](docs/running.md)
 
 ## Citation
 

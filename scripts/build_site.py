@@ -26,6 +26,7 @@ from soccer_eval.schema import Frame, MatchResult  # noqa: E402
 SITE = ROOT / "site"
 REPO = "https://github.com/Darksinian/soccer-eval"
 LIVE = "https://darksinian.github.io/soccer-eval/"
+AUTHOR, AUTHOR_URL, PUBLISHED = "Mohamed Otefi", "https://x.com/momotefi", "November 2026"
 # Shown in link previews; the card image (site/card.png) is shared with the home page.
 FINDINGS_BLURB = "What 58 games of five-a-side soccer between 8 language models show about how they coordinate."
 WRITEUP_CSS = """
@@ -51,6 +52,11 @@ WRITEUP_CSS = """
 .writeup th:empty { padding: 0; border: 0; }
 .writeup .data th, .writeup .data td { white-space: nowrap; }
 .writeup a[href*="?t="] { white-space: nowrap; font-weight: 500; }
+.writeup .page-head { display: flex; flex-direction: column; gap: 10px; }
+.writeup .page-head h1 { font-size: clamp(32px, 5vw, 44px); }
+.writeup .byline { margin: 0; font-size: 15px; color: var(--muted); }
+.writeup .byline a { color: var(--ink); font-weight: 500; text-decoration: none; }
+.writeup .byline a:hover { text-decoration: underline; }
 """
 
 
@@ -128,7 +134,9 @@ def build_writeup() -> None:
     import markdown
 
     text = (ROOT / "docs" / "writeup.md").read_text()
-    text = re.sub(r"\A# .*\n+\*[^\n]*\n[^\n]*\*\n+", "", text)  # title and draft note: the page header replaces them
+    head = re.match(r"\A# (.*)\n", text)
+    title = head.group(1) if head else "Findings"
+    text = re.sub(r"\A# .*\n+\*[^\n]*\n[^\n]*\*\n+", "", text)  # title and intro note: the page header replaces them
     body = markdown.markdown(text, extensions=["tables", "toc"])
     body = body.replace(f'href="{LIVE}"', 'href="./"').replace(f'href="{LIVE}', 'href="')
     body = re.sub(r'href="\.\./([^"]*)"', lambda m: f'href="{REPO}/blob/main/{m.group(1)}"' if m.group(1) else f'href="{REPO}"', body)
@@ -155,6 +163,7 @@ def build_writeup() -> None:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Soccer-Bench Findings</title>
+<meta name="author" content="{AUTHOR}">
 <meta name="description" content="{FINDINGS_BLURB}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Soccer-Bench Findings">
@@ -164,6 +173,7 @@ def build_writeup() -> None:
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@momotefi">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>{style.group(1) if style else ""}{WRITEUP_CSS}</style>
 </head>
@@ -171,9 +181,9 @@ def build_writeup() -> None:
 {nav}
 <div class="wrap">
   <article class="writeup">
+<header class="page-head"><h1>{title}</h1><p class="byline">By <a href="{AUTHOR_URL}">{AUTHOR}</a> · {PUBLISHED}</p></header>
 {body}
   </article>
-  <footer>Built from <a href="{REPO}/blob/main/docs/writeup.md">docs/writeup.md</a>.</footer>
 </div>
 </body>
 </html>
