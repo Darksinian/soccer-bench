@@ -1,0 +1,770 @@
+{
+  "standings": [
+    {
+      "model": "openai/gpt-6-astra",
+      "name": "GPT-6 Astra",
+      "rating": 1231.122656197779,
+      "ci": [
+        1128.4999143251262,
+        1310.9623482409997
+      ],
+      "w": 12,
+      "d": 0,
+      "l": 1,
+      "gf": 28,
+      "ga": 3,
+      "passes": 119,
+      "completed": 73,
+      "pass_pct": 61.34453781512605,
+      "won_ball": 47,
+      "games": 13,
+      "shouts_per_call": 0.8707246376811594,
+      "cost_per_game": 5.860874038461538,
+      "errors": 0,
+      "calls": 3450
+    },
+    {
+      "model": "anthropic/claude-fable-5-2",
+      "name": "Claude Fable 5.2",
+      "rating": 1152.4834385601573,
+      "ci": [
+        1036.7996253468577,
+        1235.816089620111
+      ],
+      "w": 5,
+      "d": 0,
+      "l": 1,
+      "gf": 10,
+      "ga": 6,
+      "passes": 50,
+      "completed": 27,
+      "pass_pct": 54.0,
+      "won_ball": 17,
+      "games": 6,
+      "shouts_per_call": 0.9994011976047904,
+      "cost_per_game": 14.162987999999999,
+      "errors": 1,
+      "calls": 1670
+    },
+    {
+      "model": "openai/gpt-6.1-sol",
+      "name": "GPT-6.1 Sol",
+      "rating": 1110.1733363050716,
+      "ci": [
+        1020.1866834435278,
+        1196.9936748389707
+      ],
+      "w": 11,
+      "d": 0,
+      "l": 5,
+      "gf": 27,
+      "ga": 12,
+      "passes": 123,
+      "completed": 78,
+      "pass_pct": 63.41463414634146,
+      "won_ball": 44,
+      "games": 16,
+      "shouts_per_call": 0.929438202247191,
+      "cost_per_game": 1.3146599312499998,
+      "errors": 0,
+      "calls": 4450
+    },
+    {
+      "model": "anthropic/claude-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "rating": 1003.5625661044473,
+      "ci": [
+        923.5352268392443,
+        1086.0754293211508
+      ],
+      "w": 8,
+      "d": 2,
+      "l": 7,
+      "gf": 27,
+      "ga": 19,
+      "passes": 165,
+      "completed": 102,
+      "pass_pct": 61.81818181818182,
+      "won_ball": 46,
+      "games": 17,
+      "shouts_per_call": 1.0,
+      "cost_per_game": 4.225207294117647,
+      "errors": 0,
+      "calls": 4705
+    },
+    {
+      "model": "openai/gpt-5.6-sol",
+      "name": "GPT-5.6 Sol",
+      "rating": 962.2380575872324,
+      "ci": [
+        854.2321521655517,
+        1066.9628298861073
+      ],
+      "w": 6,
+      "d": 0,
+      "l": 7,
+      "gf": 18,
+      "ga": 21,
+      "passes": 113,
+      "completed": 66,
+      "pass_pct": 58.4070796460177,
+      "won_ball": 37,
+      "games": 13,
+      "shouts_per_call": 0.9986282578875172,
+      "cost_per_game": 5.309061553846154,
+      "errors": 0,
+      "calls": 3645
+    },
+    {
+      "model": "anthropic/claude-sonnet-5-5",
+      "name": "Claude Sonnet 5.5",
+      "rating": 925.2902765976946,
+      "ci": [
+        844.6583853560792,
+        1007.7713867460322
+      ],
+      "w": 5,
+      "d": 3,
+      "l": 7,
+      "gf": 21,
+      "ga": 23,
+      "passes": 129,
+      "completed": 58,
+      "pass_pct": 44.96124031007752,
+      "won_ball": 54,
+      "games": 15,
+      "shouts_per_call": 0.9963054187192119,
+      "cost_per_game": 2.068378666666666,
+      "errors": 0,
+      "calls": 4060
+    },
+    {
+      "model": "openai/gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "rating": 900.8379623983417,
+      "ci": [
+        821.6213360111783,
+        991.8257461321266
+      ],
+      "w": 7,
+      "d": 2,
+      "l": 11,
+      "gf": 21,
+      "ga": 35,
+      "passes": 157,
+      "completed": 61,
+      "pass_pct": 38.853503184713375,
+      "won_ball": 71,
+      "games": 20,
+      "shouts_per_call": 0.8918003565062389,
+      "cost_per_game": 0.13522079974999998,
+      "errors": 0,
+      "calls": 5610
+    },
+    {
+      "model": "anthropic/claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "rating": 714.2917062492759,
+      "ci": [
+        654.3151336024755,
+        782.8153512335157
+      ],
+      "w": 0,
+      "d": 1,
+      "l": 15,
+      "gf": 7,
+      "ga": 40,
+      "passes": 76,
+      "completed": 28,
+      "pass_pct": 36.8421052631579,
+      "won_ball": 32,
+      "games": 16,
+      "shouts_per_call": 0.998989898989899,
+      "cost_per_game": 0.1152774375,
+      "errors": 1,
+      "calls": 3960
+    }
+  ],
+  "games": [
+    {
+      "id": "haiku-5-5-vs-gpt-56-sol-home",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 1,
+      "goals_b": 3,
+      "ticks": 48,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "haiku-5-5-vs-gpt-6-luna-home",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-haiku-5-5-home",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-56-sol-away",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-56-sol-home",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 0,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-6-luna-home",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 48,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-61-sol-away",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-gpt-61-sol-home",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 0,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-haiku-5-5-away",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 36,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-haiku-5-5-home",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 38,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-sonnet-5-5-away",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 1,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "opus-5-5-vs-sonnet-5-5-home",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 2,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-56-sol-away",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-56-sol-home",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 3,
+      "goals_b": 1,
+      "ticks": 38,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-6-luna-home",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-61-sol-away",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 3,
+      "goals_b": 1,
+      "ticks": 48,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-gpt-61-sol-home",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 46,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "sonnet-5-5-vs-haiku-5-5-away",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 42,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "haiku-5-5-vs-gpt-56-sol-away",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "haiku-5-5-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "haiku-5-5-vs-gpt-61-sol-away",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 1,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "haiku-5-5-vs-gpt-61-sol-home",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 33,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-61-sol-vs-gpt-56-sol-away",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-61-sol-vs-gpt-56-sol-home",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 43,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-61-sol-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-61-sol-vs-gpt-6-luna-home",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-56-sol-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-56-sol-vs-gpt-6-luna-home",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-gpt-61-sol-away",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 0,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-gpt-61-sol-home",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-opus-5-5-away",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-opus-5-5-home",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 50,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "fable-5-2-vs-gpt-6-astra-home",
+      "team_a": "anthropic/claude-fable-5-2",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 1,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-gpt-56-sol-away",
+      "team_a": "openai/gpt-5.6-sol",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 0,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-gpt-6-luna-away",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 53,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-gpt-6-luna-home",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 34,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-haiku-5-5-away",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 39,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "gpt-6-astra-vs-haiku-5-5-home",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 45,
+      "ran_on": "valkyrie",
+      "verified": true
+    },
+    {
+      "id": "astra-vs-fable",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "anthropic/claude-fable-5-2",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 49,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "astra-vs-sol",
+      "team_a": "openai/gpt-6-astra",
+      "team_b": "openai/gpt-6.1-sol",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "fable-vs-gpt56-sol",
+      "team_a": "anthropic/claude-fable-5-2",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "fable-vs-opus",
+      "team_a": "anthropic/claude-fable-5-2",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "haiku-vs-luna",
+      "team_a": "anthropic/claude-haiku-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 2,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "luna-vs-gpt56-sol",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "openai/gpt-5.6-sol",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "luna-vs-haiku",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 38,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "luna-vs-haiku-2",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "luna-vs-opus",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 49,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "luna-vs-sonnet",
+      "team_a": "openai/gpt-6-luna",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 2,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "opus-vs-luna",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "opus-vs-sonnet",
+      "team_a": "anthropic/claude-opus-5-5",
+      "team_b": "anthropic/claude-sonnet-5-5",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sol-vs-astra",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "openai/gpt-6-astra",
+      "goals_a": 0,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sol-vs-fable",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "anthropic/claude-fable-5-2",
+      "goals_a": 1,
+      "goals_b": 2,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sol-vs-opus",
+      "team_a": "openai/gpt-6.1-sol",
+      "team_b": "anthropic/claude-opus-5-5",
+      "goals_a": 2,
+      "goals_b": 0,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sonnet-vs-fable",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "anthropic/claude-fable-5-2",
+      "goals_a": 0,
+      "goals_b": 3,
+      "ticks": 45,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sonnet-vs-haiku",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "anthropic/claude-haiku-5-5",
+      "goals_a": 3,
+      "goals_b": 0,
+      "ticks": 53,
+      "ran_on": "openrouter",
+      "verified": true
+    },
+    {
+      "id": "sonnet-vs-luna",
+      "team_a": "anthropic/claude-sonnet-5-5",
+      "team_b": "openai/gpt-6-luna",
+      "goals_a": 1,
+      "goals_b": 1,
+      "ticks": 60,
+      "ran_on": "openrouter",
+      "verified": true
+    }
+  ]
+}

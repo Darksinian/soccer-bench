@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 422" width="760" height="422" role="img" aria-label="Ratings with 95% confidence intervals">
+<style>
+  .bg { fill: #fcfcfb; } .ink { fill: #0b0b0b; } .ink2 { fill: #52514e; }
+  .grid { stroke: #e4e3df; stroke-width: 1; } .axis { stroke: #b5b3ad; stroke-width: 1; }
+  .mark { fill: #2a78d6; } .whisker { stroke: #2a78d6; stroke-width: 2; stroke-linecap: round; }
+  .ring { stroke: #fcfcfb; stroke-width: 2; }
+  text { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .bg { fill: #1a1a19; } .ink { fill: #f0efec; } .ink2 { fill: #c3c2b7; }
+    .grid { stroke: #2e2e2c; } .axis { stroke: #555450; }
+    .mark { fill: #4c95ec; } .whisker { stroke: #4c95ec; } .ring { stroke: #1a1a19; }
+  }
+</style>
+<rect class="bg" width="760" height="422" rx="8"/>
+<text class="ink" x="20" y="30" font-size="16" font-weight="600">Head-to-head rating (Elo scale, 95% CI)</text>
+<line class="grid" x1="170.0" y1="48" x2="170.0" y2="384"/>
+<text class="ink2" x="170.0" y="404" font-size="12" text-anchor="middle">600</text>
+<line class="grid" x1="241.1" y1="48" x2="241.1" y2="384"/>
+<text class="ink2" x="241.1" y="404" font-size="12" text-anchor="middle">700</text>
+<line class="grid" x1="312.3" y1="48" x2="312.3" y2="384"/>
+<text class="ink2" x="312.3" y="404" font-size="12" text-anchor="middle">800</text>
+<line class="grid" x1="383.4" y1="48" x2="383.4" y2="384"/>
+<text class="ink2" x="383.4" y="404" font-size="12" text-anchor="middle">900</text>
+<line class="grid" x1="454.6" y1="48" x2="454.6" y2="384"/>
+<text class="ink2" x="454.6" y="404" font-size="12" text-anchor="middle">1000</text>
+<line class="grid" x1="525.7" y1="48" x2="525.7" y2="384"/>
+<text class="ink2" x="525.7" y="404" font-size="12" text-anchor="middle">1100</text>
+<line class="grid" x1="596.8" y1="48" x2="596.8" y2="384"/>
+<text class="ink2" x="596.8" y="404" font-size="12" text-anchor="middle">1200</text>
+<line class="grid" x1="668.0" y1="48" x2="668.0" y2="384"/>
+<text class="ink2" x="668.0" y="404" font-size="12" text-anchor="middle">1300</text>
+<g><title>GPT-6 Astra: 1231 (95% CI 1128–1311), 12W 0D 1L</title><rect x="0" y="56.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="80.0" font-size="13" text-anchor="end">GPT-6 Astra</text><line class="whisker" x1="546.0" y1="76.0" x2="675.8" y2="76.0"/><circle class="mark ring" cx="619.0" cy="76.0" r="6"/><text class="ink2" x="685.8" y="80.0" font-size="12">1231</text></g>
+<g><title>Claude Fable 5.2: 1152 (95% CI 1037–1236), 5W 0D 1L</title><rect x="0" y="96.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="120.0" font-size="13" text-anchor="end">Claude Fable 5.2</text><line class="whisker" x1="480.7" y1="116.0" x2="622.3" y2="116.0"/><circle class="mark ring" cx="563.0" cy="116.0" r="6"/><text class="ink2" x="632.3" y="120.0" font-size="12">1152</text></g>
+<g><title>GPT-6.1 Sol: 1110 (95% CI 1020–1197), 11W 0D 5L</title><rect x="0" y="136.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="160.0" font-size="13" text-anchor="end">GPT-6.1 Sol</text><line class="whisker" x1="468.9" y1="156.0" x2="594.7" y2="156.0"/><circle class="mark ring" cx="532.9" cy="156.0" r="6"/><text class="ink2" x="604.7" y="160.0" font-size="12">1110</text></g>
+<g><title>Claude Opus 5.5: 1004 (95% CI 924–1086), 8W 2D 7L</title><rect x="0" y="176.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="200.0" font-size="13" text-anchor="end">Claude Opus 5.5</text><line class="whisker" x1="400.2" y1="196.0" x2="515.8" y2="196.0"/><circle class="mark ring" cx="457.1" cy="196.0" r="6"/><text class="ink2" x="525.8" y="200.0" font-size="12">1004</text></g>
+<g><title>GPT-5.6 Sol: 962 (95% CI 854–1067), 6W 0D 7L</title><rect x="0" y="216.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="240.0" font-size="13" text-anchor="end">GPT-5.6 Sol</text><line class="whisker" x1="350.9" y1="236.0" x2="502.2" y2="236.0"/><circle class="mark ring" cx="427.7" cy="236.0" r="6"/><text class="ink2" x="512.2" y="240.0" font-size="12">962</text></g>
+<g><title>Claude Sonnet 5.5: 925 (95% CI 845–1008), 5W 3D 7L</title><rect x="0" y="256.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="280.0" font-size="13" text-anchor="end">Claude Sonnet 5.5</text><line class="whisker" x1="344.0" y1="276.0" x2="460.1" y2="276.0"/><circle class="mark ring" cx="401.4" cy="276.0" r="6"/><text class="ink2" x="470.1" y="280.0" font-size="12">925</text></g>
+<g><title>GPT-6 Luna: 901 (95% CI 822–992), 7W 2D 11L</title><rect x="0" y="296.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="320.0" font-size="13" text-anchor="end">GPT-6 Luna</text><line class="whisker" x1="327.7" y1="316.0" x2="448.7" y2="316.0"/><circle class="mark ring" cx="384.0" cy="316.0" r="6"/><text class="ink2" x="458.7" y="320.0" font-size="12">901</text></g>
+<g><title>Claude Haiku 5.5: 714 (95% CI 654–783), 0W 1D 15L</title><rect x="0" y="336.0" width="760" height="40" fill="transparent"/><text class="ink" x="156" y="360.0" font-size="13" text-anchor="end">Claude Haiku 5.5</text><line class="whisker" x1="208.6" y1="356.0" x2="300.1" y2="356.0"/><circle class="mark ring" cx="251.3" cy="356.0" r="6"/><text class="ink2" x="310.1" y="360.0" font-size="12">714</text></g>
+</svg>
