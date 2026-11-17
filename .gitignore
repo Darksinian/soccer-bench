@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.mypy_cache/
+
+# Game logs: only the curated folders are kept in git; ad-hoc runs (runs/latest, ...) stay local.
+runs/*
+!runs/leaderboard/
+!runs/vs-bot/
+!runs/experiments/
+*.egg-info/
+
+# Local editor and preview settings
+.claude/

@@ -1,0 +1,29 @@
+[project]
+name = "soccerbench"
+version = "0.1.0"
+description = "Five-a-side soccer where every player is a separate LLM call: a benchmark for multi-agent coordination."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = []  # the default OpenRouter backend needs only the standard library
+
+[project.optional-dependencies]
+direct = ["anthropic", "openai"]  # run.py --backend direct
+dev = ["mypy", "pytest", "markdown", "types-Markdown"]  # markdown builds site/writeup.html
+
+[tool.setuptools]
+packages = ["soccer_eval"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+files = ["soccer_eval", "scripts", "tests", "run.py"]
+mypy_path = "scripts"
+
+[[tool.mypy.overrides]]
+module = ["anthropic", "anthropic.*", "openai", "openai.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
